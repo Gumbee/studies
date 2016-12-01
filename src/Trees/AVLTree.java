@@ -42,9 +42,12 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
         }
 
         adjustBalance(node);
+
+        /* For debugging purposes uncomment this block to see the tree's elements being added
         printTree();
         System.out.println();
         System.out.println();
+        */
     }
 
 
