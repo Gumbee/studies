@@ -24,6 +24,11 @@ public class Graph<T> {
         nodes.add(node);
     }
 
+    /**
+     * adds an edge to the graph and the appropriate nodes
+     * @param start item representing the start node (node is created with this item)
+     * @param end item representing the end node (node is created with this item)
+     */
     public void addEdge(T start, T end) {
         Node<T> startNode = null;
         Node<T> endNode = null;

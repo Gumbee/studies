@@ -22,10 +22,6 @@ public class Node<T> {
         this.item = item;
     }
 
-    public T getItem(){
-        return item;
-    }
-
     /**
      * adds an edge to the node. Depending on whether the edge starts or ends (or both) at this edge,
      * the edge is added to the appropriate array
@@ -41,5 +37,13 @@ public class Node<T> {
             System.out.println("Added incoming edge to " + item.toString());
             incomingEdges.add(e);
         }
+    }
+
+    /*==========================================
+         * Getter Methods
+     ===========================================*/
+
+    public T getItem(){
+        return item;
     }
 }
