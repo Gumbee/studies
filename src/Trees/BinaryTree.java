@@ -48,7 +48,7 @@ public class BinaryTree<T extends Comparable<T>> {
         }
 
         // item must be inserted in the right subtree, as it is bigger as the current node
-        if(currentNode.getItem().compareTo(node.getItem()) < 0){
+        if(currentNode.compareTo(node) < 0){
             Node<T> newCurrentNode = currentNode.getRightChild();
 
             if(newCurrentNode != null){
@@ -61,7 +61,7 @@ public class BinaryTree<T extends Comparable<T>> {
                 currentNode.setRightChild(node);
                 node.setParent(currentNode);
             }
-        }else if(currentNode.getItem().compareTo(node.getItem()) > 0){
+        }else if(currentNode.compareTo(node) > 0){
             Node<T> newCurrentNode = currentNode.getLeftChild();
 
             if(newCurrentNode != null){

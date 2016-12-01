@@ -61,4 +61,7 @@ public class Node<T extends Comparable<T>> {
         }
     }
 
+    public int compareTo(Node<T> o) {
+        return item.compareTo(o.getItem());
+    }
 }

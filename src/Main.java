@@ -10,16 +10,17 @@ public class Main {
         AVLTree<Integer> tree = new AVLTree<>();
 
         tree.addItem(11);
+        tree.addItem(2);
+        tree.addItem(8);
+        tree.addItem(9);
         tree.addItem(5);
-        tree.addItem(15);
+        tree.addItem(17);
+        tree.addItem(20);
+        tree.addItem(24);
         tree.addItem(18);
-        tree.addItem(19);
-        //tree.addItem(22);
+        tree.addItem(30);
 
 
-
-
-        tree.printTree();
 
     }
 
