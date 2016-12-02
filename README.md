@@ -1,11 +1,11 @@
-# Studies
+Studies
+===
 
-## Datastructures
+A collection of my studies done at the ETH Zurich. The whole repository is a work in progress and will mainly serve to document my progress. For more information about a certain part/topic of this project (e.g graphs, trees), visit the appropriate directory. 
 
-### Trees
----
+## Trees
 
-#### Binary Tree
+### Binary Tree
 
 ```Java
 // create a binary tree
@@ -19,7 +19,7 @@ BinaryTree<Integer> tree = new BinaryTree<>();
 | *O(1)*      | *O(n)*       | *O(log n)* | Delete node | Deletes a node and "repairs" the gap |
 | *O(1)*      | *O(n)*       | *O(log n)* | Find a node | Searches for a node and outputs it   |
 
-#### AVL-Tree
+### AVL-Tree
 
 ```Java
 // create an AVL-Tree
@@ -32,8 +32,7 @@ AVLTree<Integer> tree = new AVLTree<>();
 | *O(1)*      | *O(log n)*   | *O(log n)* | Insert node | Inserts a node into the tree and rebalances the tree |
 | *O(1)*      | *O(log n)*   | *O(log n)* | Find a node | Searches for a node and outputs it                   |
 
-### Graphs
----
+## Graphs
 
 ```Java
 // create a graph

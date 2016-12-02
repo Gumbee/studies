@@ -43,10 +43,6 @@ public class Graph<T> {
             }
         }
 
-        if(startNode == null || endNode == null){
-            return;
-        }
-
         addEdge(startNode, endNode, 1);
     }
 
@@ -56,14 +52,19 @@ public class Graph<T> {
 
     /**
      * adds an edge to the graph and the appropriate nodes
-     * @param start
-     * @param end
-     * @param weight
+     * @param start the node where the edge starts
+     * @param end the node where the edge ends
+     * @param weight the weight of the edge
      */
     public void addEdge(Node<T> start, Node<T> end, int weight){
+        if(start == null || end == null){
+            return;
+        }
+
         Edge e = new Edge(start, end, weight);
 
         edges.add(e);
+
         start.addEdge(e);
         end.addEdge(e);
     }

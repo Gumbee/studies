@@ -29,12 +29,10 @@ public class Node<T> {
      */
     public void addEdge(Edge e){
         if(e.getStart() == this){
-            System.out.println("Added outgoing edge from " + item.toString());
             outgoingEdges.add(e);
         }
 
         if(e.getEnd() == this){
-            System.out.println("Added incoming edge to " + item.toString());
             incomingEdges.add(e);
         }
     }

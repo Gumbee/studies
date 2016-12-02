@@ -29,7 +29,7 @@ public class BinaryTree<T extends Comparable<T>> {
     /**
      * creates a new node with an item as its content and then inserts it into the tree
      */
-    public void addItem(T item){
+    public void add(T item){
         Node<T> node = new Node<>(item);
         // insert the new node into the tree and start the insertion process at the root
         insertNode(root, node);
@@ -47,33 +47,23 @@ public class BinaryTree<T extends Comparable<T>> {
             return;
         }
 
-        // item must be inserted in the right subtree, as it is bigger as the current node
-        if(currentNode.compareTo(node) < 0){
-            Node<T> newCurrentNode = currentNode.getRightChild();
+        Node<T> current = currentNode;
 
-            if(newCurrentNode != null){
-                // current node has a right child, therefore we must compare the node
-                // that is to be inserted with the right child
-                insertNode(newCurrentNode, node);
-            }else{
-                // current node has no right child, therefore we can set the node that is to
-                // be inserted as its new right child
-                currentNode.setRightChild(node);
-                node.setParent(currentNode);
-            }
-        }else if(currentNode.compareTo(node) > 0){
-            Node<T> newCurrentNode = currentNode.getLeftChild();
+        boolean canGoLeft = (current.getLeftChild() != null && current.compareTo(node) > 0);
+        boolean canGoRight = (current.getRightChild() != null && current.compareTo(node) < 0);
 
-            if(newCurrentNode != null){
-                // current node has a left child, therefore we must compare the node
-                // that is to be inserted with the left child
-                insertNode(newCurrentNode, node);
-            }else{
-                // current node has no left child, therefore we can set the node that is to
-                // be inserted as its new left child
-                currentNode.setLeftChild(node);
-                node.setParent(currentNode);
-            }
+        while(canGoLeft || canGoRight){
+            current = current.compareTo(node)>=0?current.getLeftChild():current.getRightChild();
+
+            canGoLeft = current.getLeftChild() != null && current.compareTo(node) > 0;
+            canGoRight = current.getRightChild() != null && current.compareTo(node) < 0;
+
+        }
+
+        if(current.compareTo(node) < 0){
+            current.setRightChild(node);
+        }else if(current.compareTo(node) > 0){
+            current.setLeftChild(node);
         }
     }
 
