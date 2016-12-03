@@ -5,15 +5,16 @@
 ## Graphs
 
 - [ ] Union Find
-- [ ] A*
+- [ ] A-Star
 - [ ] Dijkstra
 - [ ] Strongly Connected Graph
 - [ ] 2-Sat Problem
 - [ ] Euler Cycles
+- [ ] MST
 
 ## Utils
 
-- [ ] Strassen
+- [ ] Strassen's Matrix Multiplication
 
 ## Algebra
 

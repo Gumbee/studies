@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Vertex<T> {
 
+    // when assigning a number to each vertex, that number is stored in here
     public int order;
 
     private T item;

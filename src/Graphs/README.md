@@ -4,8 +4,13 @@
 
 #### Create a graph
 ```Java
-// initialize graph
+// initialize a directed graph
 Graph<String> graph = new Graph<>();
+// or
+Graph<String> graph = new Graph<>(true);
+
+// initialize an undirected graph
+Graph<String> graph = new Graph<>(false);
 ```
 
 #### Add vertices
@@ -39,7 +44,7 @@ graph.addEdge(start, end);
 
 ```Java
 // returns true if Munich is reachable from Berlin
-graph.isAdjacent("Munich", "Berlin");
+boolean isReachable = graph.isAdjacent("Munich", "Berlin");
 ```
 
 #### Get all neighbors of a vertex
@@ -59,8 +64,11 @@ In an undirected graph it means a vertex that is connected to "v" via a edge whi
 #### Perform a BFS/DFS
 
 ```Java
-// performs a breadth-first-search starting with startVertex
-graph.BFS(startVertex);
-// performs a depth-first-search starting with startVertex
-graph.DFS(startVertex);
+// performs a breadth-first-search with startVertex as starting vertex and desiredVertex
+// as vertex that is to be reached. BFS returns true if desiredVertex was reached and false otherwise.
+boolean bfsFoundVertex = graph.BFS(startVertex, desiredVertex);
+
+// performs a depth-first-search with startVertex as starting vertex and desiredVertex
+// as vertex that is to be reached. DFS returns true if desiredVertex was reached and false otherwise.
+boolean dfsFoundVertex = graph.DFS(startVertex, desiredVertex);
 ```
