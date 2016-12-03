@@ -15,9 +15,9 @@ BinaryTree<Integer> tree = new BinaryTree<>();
 ##### Analysis:
 | Best Case | Worst Case | Expected | Opeartion   | Description                          |
 |-----------|------------|----------|-------------|--------------------------------------|
-| *O(1)*      | *O(n)*       | *O(log n)* | Insert node | Inserts a node into the tree         |
-| *O(1)*      | *O(n)*       | *O(log n)* | Delete node | Deletes a node and "repairs" the gap |
-| *O(1)*      | *O(n)*       | *O(log n)* | Find a node | Searches for a node and outputs it   |
+| *O(1)*      | *O(n)*       | *O(log n)* | Insert vertex | Inserts a vertex into the tree         |
+| *O(1)*      | *O(n)*       | *O(log n)* | Delete vertex | Deletes a vertex and "repairs" the gap |
+| *O(1)*      | *O(n)*       | *O(log n)* | Find a vertex | Searches for a vertex and outputs it   |
 
 ### AVL-Tree
 
@@ -29,8 +29,8 @@ AVLTree<Integer> tree = new AVLTree<>();
 ##### Analysis
 | Best Case | Worst Case | Expected | Opeartion   | Description                                          |
 |-----------|------------|----------|-------------|------------------------------------------------------|
-| *O(1)*      | *O(log n)*   | *O(log n)* | Insert node | Inserts a node into the tree and rebalances the tree |
-| *O(1)*      | *O(log n)*   | *O(log n)* | Find a node | Searches for a node and outputs it                   |
+| *O(1)*      | *O(log n)*   | *O(log n)* | Insert vertex | Inserts a vertex into the tree and rebalances the tree |
+| *O(1)*      | *O(log n)*   | *O(log n)* | Find a vertex | Searches for a vertex and outputs it                   |
 
 ## Graphs
 

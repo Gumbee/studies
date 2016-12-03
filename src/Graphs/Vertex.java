@@ -5,17 +5,19 @@ import java.util.ArrayList;
 /**
  * Created by mugeebhassan on 01/12/16.
  */
-public class Node<T> {
+public class Vertex<T> {
+
+    public int order;
 
     private T item;
-    private ArrayList<Edge> incomingEdges;
-    private ArrayList<Edge> outgoingEdges;
+    private ArrayList<Edge<T>> incomingEdges;
+    private ArrayList<Edge<T>> outgoingEdges;
 
-    public Node(){
+    public Vertex(){
         this(null);
     }
 
-    public Node(T item){
+    public Vertex(T item){
         incomingEdges = new ArrayList<>();
         outgoingEdges = new ArrayList<>();
 
@@ -27,7 +29,7 @@ public class Node<T> {
      * the edge is added to the appropriate array
      * @param e
      */
-    public void addEdge(Edge e){
+    public void addEdge(Edge<T> e){
         if(e.getStart() == this){
             outgoingEdges.add(e);
         }
@@ -37,11 +39,33 @@ public class Node<T> {
         }
     }
 
+    /**
+     * returns this node's incoming degree
+     */
+    public final int degIn(){
+        return incomingEdges.size();
+    }
+
+    /**
+     * returns this node's outgoing degree
+     */
+    public final int degOut(){
+        return outgoingEdges.size();
+    }
+
     /*==========================================
          * Getter Methods
      ===========================================*/
 
-    public T getItem(){
+    public final T getItem(){
         return item;
+    }
+
+    public final ArrayList<Edge<T>> getOutgoingEdges(){
+        return outgoingEdges;
+    }
+
+    public final ArrayList<Edge<T>> getIncomingEdges(){
+        return incomingEdges;
     }
 }

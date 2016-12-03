@@ -1,16 +1,6 @@
 import Graphs.Edge;
 import Graphs.Graph;
-import Graphs.Node;
-import Trees.AVLTree;
-import Trees.BinaryTree;
-
-import javax.swing.*;
-import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import Graphs.Vertex;
 
 /**
  * Created by mugeebhassan on 25/11/16.
@@ -19,24 +9,42 @@ public class Main {
 
     public static void main(String[] args){
 
-        Graph<String> graph = new Graph<>();
+        Graph<String> graph = new Graph<>(true);
 
         // add some nodes to the graph
-        graph.addNode("Berlin");
-        graph.addNode("Madrid");
-        graph.addNode("Zurich");
-        graph.addNode("Rome");
+        graph.addVertex("Microsoft");
+        graph.addVertex("Motorola");
+        graph.addVertex("HTC");
+        graph.addVertex("Apple");
+        graph.addVertex("Kodak");
+        graph.addVertex("Samsung");
+        graph.addVertex("LG");
+        graph.addVertex("Sony");
+        graph.addVertex("Nokia");
+        graph.addVertex("RIM");
+        graph.addVertex("Qualcomm");
+        graph.addVertex("Foxconn");
+        graph.addVertex("Inventec");
+        graph.addVertex("Amazon");
+        graph.addVertex("Barnes");
 
-        // create the nodes manually and then add them to the graph
-        Node<String> munich = new Node<>("Munich");
-        Node<String> geneva = new Node<>("Geneva");
 
-        graph.addNode(munich);
-        graph.addNode(geneva);
-
-        graph.addEdge("Berlin", "Munich");
-        graph.addEdge(munich, geneva);
-
+        graph.addEdge("Microsoft", "Motorola");
+        graph.addEdge("Motorola", "Apple");
+        graph.addEdge("Microsoft", "HTC");
+        graph.addEdge("HTC", "Apple");
+        graph.addEdge("Apple", "Samsung");
+        graph.addEdge("Samsung", "Kodak");
+        graph.addEdge("Apple", "Kodak");
+        graph.addEdge("RIM", "Kodak");
+        graph.addEdge("LG", "Kodak");
+        graph.addEdge("Sony", "LG");
+        graph.addEdge("Microsoft", "Inventec");
+        graph.addEdge("Microsoft", "Amazon");
+        graph.addEdge("Microsoft", "Barnes");
+        graph.addEdge("Microsoft", "Foxconn");
+        graph.addEdge("Apple", "Nokia");
+        graph.addEdge("Nokia", "Qualcomm");
 
         for(Edge e: graph.getEdges()){
             System.out.println(e.getStart().getItem() + " ──> " + e.getEnd().getItem());
@@ -45,23 +53,16 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        // create a binary tree
-        AVLTree<Integer> tree = new AVLTree<>();
 
-        // add elements to the tree
-        tree.add(11);
-        tree.add(2);
-        tree.add(8);
-        tree.add(9);
-        tree.add(5);
-        tree.add(17);
-        tree.add(20);
-        tree.add(24);
-        tree.add(18);
-        tree.add(30);
+        System.out.println(graph.isAdjacent("Samsung", "Apple"));
 
-        // print out the tree (formatted ASCII ART)
-        tree.printTree();
+        System.out.println();
+        System.out.println();
+
+        for(Vertex<String> n: graph.getNeighbors("Apple")){
+            System.out.println(n.getItem().toString() + " is a neighbor of Apple");
+        }
+
     }
 
 }

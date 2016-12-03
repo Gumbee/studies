@@ -3,28 +3,28 @@ package Graphs;
 /**
  * Created by mugeebhassan on 01/12/16.
  */
-public class Edge {
+public class Edge<T> {
 
-    private Node start;
-    private Node end;
+    private Vertex<T> start;
+    private Vertex<T> end;
 
     private int weight;
 
-    public Edge(Node start, Node end) {
+    public Edge(Vertex<T> start, Vertex<T> end) {
         this(start, end, 1);
     }
 
-    public Edge(Node start, Node end, int weight) {
+    public Edge(Vertex<T> start, Vertex<T> end, int weight) {
         this.start = start;
         this.end = end;
         this.weight = weight;
     }
 
-    public Node getStart(){
+    public Vertex<T> getStart(){
         return start;
     }
 
-    public Node getEnd(){
+    public Vertex<T> getEnd(){
         return end;
     }
 
