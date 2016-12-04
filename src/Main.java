@@ -1,7 +1,7 @@
-import Graphs.Edge;
-import Graphs.Graph;
-import Graphs.Vertex;
-import Trees.AVLTree;
+import Algebra.Ring;
+import Algebra.ZModGroup;
+import Algebra.ZModMonoid;
+import Algebra.ZModType;
 
 /**
  * Created by mugeebhassan on 25/11/16.
@@ -10,81 +10,25 @@ public class Main {
 
     public static void main(String[] args){
 
-        Graph<String> graph = new Graph<>(true);
+        ZModGroup modAdd = new ZModGroup(19, ZModType.additive);
+        ZModMonoid modMult = new ZModMonoid(19, ZModType.multiplicative);
 
-        // add some nodes to the graph
-        graph.addVertex("Microsoft");
-        graph.addVertex("Motorola");
-        graph.addVertex("HTC");
-        graph.addVertex("Apple");
-        graph.addVertex("Kodak");
-        graph.addVertex("Samsung");
-        graph.addVertex("LG");
-        graph.addVertex("Sony");
-        graph.addVertex("Nokia");
-        graph.addVertex("RIM");
-        graph.addVertex("Qualcomm");
-        graph.addVertex("Foxconn");
-        graph.addVertex("Inventec");
-        graph.addVertex("Amazon");
-        graph.addVertex("Barnes");
-
-
-        graph.addEdge("Microsoft", "Motorola");
-        graph.addEdge("Motorola", "Apple");
-        graph.addEdge("Microsoft", "HTC");
-        graph.addEdge("HTC", "Apple");
-        graph.addEdge("Apple", "Samsung");
-        graph.addEdge("Samsung", "Kodak");
-        graph.addEdge("Apple", "Kodak");
-        graph.addEdge("RIM", "Kodak");
-        graph.addEdge("LG", "Kodak");
-        graph.addEdge("Sony", "LG");
-        graph.addEdge("Microsoft", "Inventec");
-        graph.addEdge("Microsoft", "Amazon");
-        graph.addEdge("Microsoft", "Barnes");
-        graph.addEdge("Microsoft", "Foxconn");
-        graph.addEdge("Apple", "Nokia");
-        graph.addEdge("Nokia", "Qualcomm");
-
-        for(Edge e: graph.getEdges()){
-            System.out.println(e.getStart().getItem() + " ──> " + e.getEnd().getItem());
+        for(int e: modMult.set()){
+            System.out.println(e);
         }
 
-        System.out.println();
-        System.out.println();
-
-
-        System.out.println(graph.isAdjacent("Samsung", "Apple"));
+        Integer a = 2;
+        Integer b = 5;
+        Integer c = 7;
 
         System.out.println();
         System.out.println();
 
-        for(Vertex<String> n: graph.getNeighbors("Apple")){
-            System.out.println(n.getItem().toString() + " is a neighbor of Apple");
-        }
+        Ring<Integer> ring = new Ring<Integer>(modAdd, modMult);
 
-        System.out.println();
-        System.out.println();
+        System.out.println(ring.mult(a, ring.add(b,c)));
 
-        // create an AVL-Tree
-        AVLTree<Integer> tree = new AVLTree<>();
 
-        // add elements to the tree
-        tree.add(5);
-        tree.add(61);
-        tree.add(1);
-        tree.add(6);
-        tree.add(32);
-        tree.add(151);
-        tree.add(99);
-        tree.add(231);
-        tree.add(81);
-        tree.add(8);
-        tree.add(12);
-
-        // print out the tree (formatted ASCII ART)
-        tree.printTree();
 
     }
 

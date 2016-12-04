@@ -87,10 +87,10 @@ public class Graph<T> {
     }
 
     /**
-     * A function that checks whether the vertex B is reachable from the vertex A
+     * A function that checks whether the vertex B is connected to the vertex A with an edge
      * @param A starting point
      * @param B desired ending point
-     * @return whether B is reachable from A
+     * @return whether B is reachable from A via one edge
      */
     public final boolean isAdjacent(T B, T A) {
         Vertex<T> a = getVertex(A);
@@ -100,13 +100,19 @@ public class Graph<T> {
     }
 
     /**
-     * A function that checks whether the vertex B is reachable from the vertex A
+     * A function that checks whether the vertex B is connected to the vertex A with an edge
      * @param A starting point
      * @param B desired ending point
-     * @return whether B is reachable from A
+     * @return whether B is reachable from A via one edge
      */
     public final boolean isAdjacent(Vertex<T> B, Vertex<T> A){
-        return BFS(A, B);
+        for(Edge<T> edge: A.getOutgoingEdges()){
+            if(edge.getEnd() == B){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
