@@ -43,5 +43,5 @@ Graph<String> graph = new Graph<>();
 |-----------|--------------|--------------|--------------|------------------------------------------------|
 | O(1)      | O(1)         | O(1)         | Add vertex   | Adds a new vertex to the graph                 |
 | O(1)      | O(1)         | O(1)         | Add edge     | Adds a new edge to the graph                   |
-| O(1)      | O(\|V\| + \|E\|) | O(\|V\| + \|E\|) | isAdjacent   | Checks if vertex B is reachable from vertex A. |
+| O(1)      | O(\|V\| + \|E\|) | O(\|V\| + \|E\|) | isAdjacent   | Checks whether vertex B is reachable from vertex A|
 | O(1)      | O(\|E\|)       | O(\|E\|)       | getNeighbors | Finds all neighbors of a certain vertex        |

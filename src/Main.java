@@ -1,6 +1,7 @@
 import Graphs.Edge;
 import Graphs.Graph;
 import Graphs.Vertex;
+import Trees.AVLTree;
 
 /**
  * Created by mugeebhassan on 25/11/16.
@@ -62,6 +63,28 @@ public class Main {
         for(Vertex<String> n: graph.getNeighbors("Apple")){
             System.out.println(n.getItem().toString() + " is a neighbor of Apple");
         }
+
+        System.out.println();
+        System.out.println();
+
+        // create an AVL-Tree
+        AVLTree<Integer> tree = new AVLTree<>();
+
+        // add elements to the tree
+        tree.add(5);
+        tree.add(61);
+        tree.add(1);
+        tree.add(6);
+        tree.add(32);
+        tree.add(151);
+        tree.add(99);
+        tree.add(231);
+        tree.add(81);
+        tree.add(8);
+        tree.add(12);
+
+        // print out the tree (formatted ASCII ART)
+        tree.printTree();
 
     }
 
