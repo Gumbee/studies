@@ -17,7 +17,7 @@ public class ZModGroup extends ZModMonoid implements Group<Integer> {
         for(int i=0;i<mod;i++){
             if(type == ZModType.additive){
                 set.add(i);
-            }else if(type == ZModType.multiplicative && i!=0 && gcd(mod, i).gcd == 1){
+            }else if(type == ZModType.multiplicative && gcd(mod, i).gcd == 1 || i==0){
                 set.add(i);
             }
         }

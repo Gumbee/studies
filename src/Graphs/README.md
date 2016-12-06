@@ -43,7 +43,7 @@ graph.addEdge(start, end);
 #### Check if a vertex is connected to another vertex with an edge
 
 ```Java
-// returns true if Munich is can be reached from Berlin with one edge
+// returns true if Munich can be reached from Berlin via one edge
 boolean isReachable = graph.isAdjacent("Munich", "Berlin");
 ```
 
