@@ -27,10 +27,8 @@ public class ZModMonoid implements Monoid<Integer> {
     }
 
     @Override
-    public Integer[] set() {
-        Integer[] arraySet = set.toArray(new Integer[set.size()]);
-
-        return arraySet;
+    public ArrayList<Integer> getSet() {
+        return set;
     }
 
     @Override

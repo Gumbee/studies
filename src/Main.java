@@ -1,5 +1,7 @@
 import Algebra.*;
 
+import java.util.ArrayList;
+
 /**
  * Created by mugeebhassan on 25/11/16.
  */
@@ -7,29 +9,34 @@ public class Main {
 
     public static void main(String[] args){
 
-        ZModGroup modAdd = new ZModGroup(17, ZModType.additive);
-        ZModGroup modMult = new ZModGroup(17, ZModType.multiplicative);
+        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
+        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
 
-        for(int e: modMult.set()){
-            System.out.println(e);
-        }
+        GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
+        PolynomialField<Integer> PolynomialField = new PolynomialField<>(GF);
+        PolynomialField<Polynomial<Integer>> PolyPolynomialField = new PolynomialField<>(PolynomialField);
 
-        Integer a = 2;
-        Integer b = 5;
-        Integer c = 7;
+        Polynomial<Integer> polynomialA = new Polynomial<>(GF, 1, 0, 1, 1);
+        Polynomial<Integer> polynomialB = new Polynomial<>(GF, 1, 1, 0, 0);
 
-        System.out.println();
-        System.out.println();
+        Polynomial<Integer> polynomialC = new Polynomial<>(GF, 1, 0, 1, 0, 1);
+        Polynomial<Integer> polynomialD = new Polynomial<>(GF, 1, 0, 0, 0);
 
-        Field<Integer> field = new Field<>(modAdd, modMult);
+        ArrayList<Polynomial<Integer>> coefficientsA = new ArrayList<>();
 
-        System.out.println(field.mult(a, field.add(b,c)));
+        coefficientsA.add(polynomialA);
+        coefficientsA.add(polynomialB);
 
-        System.out.println(field.multiplicativeInverse(c));
+        ArrayList<Polynomial<Integer>> coefficientsB = new ArrayList<>();
 
-        PolynomialField<Integer> polynomialField = new PolynomialField<>(field);
+        coefficientsB.add(polynomialC);
+        coefficientsB.add(polynomialD);
+
+        Polynomial<Polynomial<Integer>> polyPolynomialA = new Polynomial<>(PolynomialField, coefficientsA);
+        Polynomial<Polynomial<Integer>> polyPolynomialB = new Polynomial<>(PolynomialField, coefficientsB);
+
+        PolyPolynomialField.add(polyPolynomialA, polyPolynomialB).print();
 
 
     }
-
 }

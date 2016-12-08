@@ -1,63 +1,42 @@
 package Algebra;
 
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 
 /**
  * Created by mugeebhassan on 04/12/16.
  */
-public class Ring<T> {
-
-    protected Group<T> additive;
-    protected Monoid<T> multiplicative;
-
-    public Ring(Group<T> additive, Monoid<T> multiplicative){
-        this.additive = additive;
-        this.multiplicative = multiplicative;
-
-        if(additive.set().length != multiplicative.set().length){
-            throw new RuntimeException("The additive group must operate on the same set as the multiplicative group!");
-        }
-
-        for(int i=0;i<additive.set().length;i++){
-            if(additive.set()[i] != multiplicative.set()[i]){
-                throw new RuntimeException("The additive group must operate on the same set as the multiplicative group!");
-            }
-        }
-    }
+public interface Ring<T> {
 
     /**
      * performs an addition and returns the value
      */
-    public T add(T A, T B){
-        return additive.add(A, B);
-    }
+    public T add(T A, T B);
 
     /**
      * performs a "multiplication" and returns the value
      */
-    public T mult(T A, T B){
-        return multiplicative.add(A, B);
-    }
+    public T mult(T A, T B);
 
     /**
      * returns the additive inverse
      */
-    public T additiveInverse(T A){
-        return additive.inverse(A);
-    }
+    public T additiveInverse(T A);
 
     /**
      * returns the additive identity
      */
-    public T additiveIdentity(){
-        return additive.identity();
-    }
+    public T additiveIdentity();
 
     /**
      * returns the multiplicative identity
      */
-    public T multiplicativeIdentity(){
-        return multiplicative.identity();
-    }
+    public T multiplicativeIdentity();
+
+    public Group<T> getAdditiveGroup();
+
+    public Monoid<T> getMultiplicativeMonoid();
+
+    public ArrayList<T> getSet();
 
 }

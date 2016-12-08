@@ -1,43 +1,68 @@
 package Algebra;
 
+import java.util.ArrayList;
+
 /**
- * Created by mugeebhassan on 06/12/16.
+ * Created by mugeebhassan on 08/12/16.
  */
-public class PolynomialField<T> extends Field<T> {
+public class PolynomialField<T> implements Field<Polynomial<T>> {
 
-    private int degree = 0;
-    // field over which we define the polynomial
-    private Field<T> field;
+    Field<T> field;
 
-    private T[] polynome;
-
-    public PolynomialField(Field<T> field, T... coefficients){
-        super(field.getAdditiveGroup(), field.getMultiplicativeGroup());
-
-        int i=0;
-
-        while (i< coefficients.length && coefficients[i] == field.additiveIdentity()){
-            i++;
-        }
-
-        System.out.println("degree: " + (coefficients.length-i));
+    public PolynomialField(Field<T> field){
+        this.field = field;
     }
 
-    /**
-     * performs an addition and returns the value
-     */
     @Override
-    public final T add(T A, T B){
-        return additive.add(A, B);
+    public Polynomial<T> multiplicativeInverse(Polynomial<T> A) {
+        return new Polynomial<T>(field, field.additiveIdentity());
     }
 
-    /**
-     * performs a "multiplication" and returns the value
-     */
     @Override
-    public final T mult(T A, T B){
-        return multiplicative.add(A, B);
+    public Group<Polynomial<T>> getMultiplicativeGroup() {
+        return null;
     }
 
+    @Override
+    public Polynomial<T> add(Polynomial<T> A, Polynomial<T> B) {
+        return A.add(B);
+    }
 
+    @Override
+    public Polynomial<T> mult(Polynomial<T> A, Polynomial<T> B) {
+        return null;
+    }
+
+    @Override
+    public Polynomial<T> additiveInverse(Polynomial<T> A) {
+        return null;
+    }
+
+    @Override
+    public Polynomial<T> additiveIdentity() {
+        ArrayList<T> co = new ArrayList<>();
+        co.add(field.additiveIdentity());
+
+        return new Polynomial<T>(field, co);
+    }
+
+    @Override
+    public Polynomial<T> multiplicativeIdentity() {
+        return null;
+    }
+
+    @Override
+    public Group<Polynomial<T>> getAdditiveGroup() {
+        return null;
+    }
+
+    @Override
+    public Monoid<Polynomial<T>> getMultiplicativeMonoid() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Polynomial<T>> getSet() {
+        return null;
+    }
 }
