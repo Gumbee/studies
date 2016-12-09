@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Vertex<T> {
 
     // when assigning a number to each vertex, that number is stored in here
-    public int order;
+    public int index;
 
     private T item;
     private ArrayList<Edge<T>> incomingEdges;

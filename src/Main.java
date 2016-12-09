@@ -1,4 +1,6 @@
 import Algebra.*;
+import Graphs.Graph;
+import Graphs.Vertex;
 
 import java.util.ArrayList;
 
@@ -9,34 +11,36 @@ public class Main {
 
     public static void main(String[] args){
 
-        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
-        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
+        ZModGroup modAdd = new ZModGroup(5, ZModType.additive);
+        ZModGroup modMult = new ZModGroup(5, ZModType.multiplicative);
 
         GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
         PolynomialField<Integer> PolynomialField = new PolynomialField<>(GF);
         PolynomialField<Polynomial<Integer>> PolyPolynomialField = new PolynomialField<>(PolynomialField);
 
-        Polynomial<Integer> polynomialA = new Polynomial<>(GF, 1, 0, 1, 1);
-        Polynomial<Integer> polynomialB = new Polynomial<>(GF, 1, 1, 0, 0);
+        PolynomialGenerator<Integer> generator = new PolynomialGenerator<>(GF, "z");
+        PolynomialGenerator<Polynomial<Integer>> generatorPoly = new PolynomialGenerator<>(PolynomialField, "y");
+        PolynomialGenerator<Polynomial<Polynomial<Integer>>> generatorPolyPoly = new PolynomialGenerator<>(PolyPolynomialField);
 
-        Polynomial<Integer> polynomialC = new Polynomial<>(GF, 1, 0, 1, 0, 1);
-        Polynomial<Integer> polynomialD = new Polynomial<>(GF, 1, 0, 0, 0);
+        Polynomial<Integer> a = generator.generatePolynomial(2,3,1,1,5);
+        Polynomial<Integer> b = generator.generatePolynomial(1,3,2,2);
+        Polynomial<Integer> c = generator.generatePolynomial(1,2);
+        Polynomial<Integer> d = generator.generatePolynomial(3,2,1,2);
+        Polynomial<Integer> e = generator.generatePolynomial(1,3,2,1);
 
-        ArrayList<Polynomial<Integer>> coefficientsA = new ArrayList<>();
+        Polynomial<Polynomial<Integer>> f = generatorPoly.generatePolynomial(a,b,c);
+        Polynomial<Polynomial<Integer>> g = generatorPoly.generatePolynomial(d,e,b);
+        Polynomial<Polynomial<Integer>> h = generatorPoly.generatePolynomial(e,a);
+        Polynomial<Polynomial<Integer>> i = generatorPoly.generatePolynomial(d,d);
 
-        coefficientsA.add(polynomialA);
-        coefficientsA.add(polynomialB);
+        Polynomial<Polynomial<Polynomial<Integer>>> j = generatorPolyPoly.generatePolynomial(f,g);
+        Polynomial<Polynomial<Polynomial<Integer>>> k = generatorPolyPoly.generatePolynomial(h,i);
 
-        ArrayList<Polynomial<Integer>> coefficientsB = new ArrayList<>();
+        j.print();
+        k.print();
 
-        coefficientsB.add(polynomialC);
-        coefficientsB.add(polynomialD);
+        j.add(k).print();
 
-        Polynomial<Polynomial<Integer>> polyPolynomialA = new Polynomial<>(PolynomialField, coefficientsA);
-        Polynomial<Polynomial<Integer>> polyPolynomialB = new Polynomial<>(PolynomialField, coefficientsB);
-
-        PolyPolynomialField.add(polyPolynomialA, polyPolynomialB).print();
-
-
+        a.add(e).print();
     }
 }

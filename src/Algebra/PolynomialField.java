@@ -8,14 +8,19 @@ import java.util.ArrayList;
 public class PolynomialField<T> implements Field<Polynomial<T>> {
 
     Field<T> field;
+    // save additive and multiplicative identity in variables so we don't have to create them frequently
+    Polynomial<T> additiveIdentity;
+    Polynomial<T> multiplicativeIdentity;
 
     public PolynomialField(Field<T> field){
         this.field = field;
+        this.additiveIdentity = new Polynomial<>(field, "y", field.additiveIdentity());
+        this.multiplicativeIdentity = new Polynomial<>(field, "y", field.multiplicativeIdentity());
     }
 
     @Override
     public Polynomial<T> multiplicativeInverse(Polynomial<T> A) {
-        return new Polynomial<T>(field, field.additiveIdentity());
+        return null;
     }
 
     @Override
@@ -40,15 +45,12 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
 
     @Override
     public Polynomial<T> additiveIdentity() {
-        ArrayList<T> co = new ArrayList<>();
-        co.add(field.additiveIdentity());
-
-        return new Polynomial<T>(field, co);
+        return this.additiveIdentity;
     }
 
     @Override
     public Polynomial<T> multiplicativeIdentity() {
-        return null;
+        return this.multiplicativeIdentity;
     }
 
     @Override

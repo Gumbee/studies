@@ -72,6 +72,15 @@ public class ZModMonoid implements Monoid<Integer> {
             }
         }
 
+        A = Math.floorMod(A, mod);
+
+        // checks if the desired element is part of the legal set and throws an error otherwise
+        for(int e:set){
+            if(e==A){
+                return A;
+            }
+        }
+
         throw new NullPointerException(A + " is not element of this set!");
     }
 
