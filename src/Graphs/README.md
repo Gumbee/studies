@@ -72,3 +72,15 @@ boolean bfsFoundVertex = graph.BFS(startVertex, desiredVertex);
 // as vertex that is to be reached. DFS returns true if desiredVertex was reached and false otherwise.
 boolean dfsFoundVertex = graph.DFS(startVertex, desiredVertex);
 ```
+
+#### Sort topologically
+
+```Java
+// sorts the graph topologically and returns the result
+ArrayList<Vertex<Task>> sorted = graph.topologicalSort()
+
+for(Vertex<Task> task: sorted){
+    // execute the tasks in order
+    task.getItem().execute();
+}
+```
