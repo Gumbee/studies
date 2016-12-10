@@ -14,6 +14,8 @@ public class Main {
         ZModGroup modAdd = new ZModGroup(5, ZModType.additive);
         ZModGroup modMult = new ZModGroup(5, ZModType.multiplicative);
 
+        /*
+
         GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
         PolynomialField<Integer> PolynomialField = new PolynomialField<>(GF);
         PolynomialField<Polynomial<Integer>> PolyPolynomialField = new PolynomialField<>(PolynomialField);
@@ -41,6 +43,6 @@ public class Main {
 
         j.add(k).print();
 
-        a.add(e).print();
+        a.add(e).print();*/
     }
 }
