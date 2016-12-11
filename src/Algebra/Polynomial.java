@@ -1,9 +1,6 @@
 package Algebra;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -18,15 +15,24 @@ public class Polynomial<T> {
     // string representation of the polynomials variable (e.g "x")
     private String variable;
 
+    @SafeVarargs
+    public Polynomial(Field<T> field, T... coefficients){
+        this(field, "x", coefficients);
+    }
 
+    @SafeVarargs
     public Polynomial(Field<T> field, String variable, T... coefficients){
         ArrayList<T> tmp = new ArrayList<>();
 
-        for(T c:coefficients){
-            tmp.add(c);
+        for(int i=0;i<coefficients.length;i++){
+            tmp.add(coefficients[i]);
         }
 
         initializePolynomial(field, variable, tmp);
+    }
+
+    public Polynomial(Field<T> field, ArrayList<T> coefficients){
+        this(field, "x", coefficients);
     }
 
     public Polynomial(Field<T> field, String variable, ArrayList<T> coefficients){
@@ -55,12 +61,12 @@ public class Polynomial<T> {
             // a leading coefficient (e.g 2x¹ + 0x² + x³ + 0x⁴ + 0x⁵ = 2x¹ + 0x² + x³)
             if(!coefficients.get(i).equals(field.additiveIdentity()) || !leadingZeros){
                 leadingZeros = false;
-                stack.add(coefficients.get(i));
+                stack.push(coefficients.get(i));
             }
         }
 
-        for(T coefficient:stack) {
-            this.coefficients.add(coefficient);
+        while (!stack.empty()) {
+            this.coefficients.add(stack.pop());
         }
 
     }
@@ -73,6 +79,8 @@ public class Polynomial<T> {
      * adds two polynomials and returns the sum
      */
     public Polynomial<T> add(Polynomial<T> B) {
+        // check if B is defined over the same field as this polynomial
+        checkField(B);
 
         ArrayList<T> sums = new ArrayList<>();
 
@@ -94,6 +102,30 @@ public class Polynomial<T> {
         return new Polynomial<>(field, B.variable, sums);
     }
 
+    /**
+     * multiplies a polynomial with this polynomial and returns the result
+     */
+    public Polynomial<T> mult(Polynomial<T> B){
+        // check if B is defined over the same field as this polynomial
+        checkField(B);
+
+        return null;
+    }
+
+    /*==========================================
+     * Private methods
+     ===========================================*/
+
+    /**
+     * throws an exception if the polynomial B's field is a different field than this polynomial's field.
+     * @param B other polynomial whose field is compared to this polynomial's field
+     */
+    private void checkField(Polynomial<T> B){
+        if(!field.equals(B.field)){
+            throw new RuntimeException("Can't add two polynomials which are defined over different fields!");
+        }
+    }
+
     /*==========================================
      * Polynomial Representation
      ===========================================*/
@@ -103,14 +135,14 @@ public class Polynomial<T> {
      */
     public void print(){
         System.out.println();
-        System.out.println(polynomialString());
+        System.out.println(polynomialToString());
     }
 
     /**
      * converts the polynomial to a string
      * @return
      */
-    private String polynomialString(){
+    private String polynomialToString(){
         if(coefficients.size() == 0){
             return "";
         }
@@ -147,7 +179,7 @@ public class Polynomial<T> {
     @Override
     public String toString() {
         String output = "[";
-        output += polynomialString();
+        output += polynomialToString();
         output += "]";
         return output;
     }
