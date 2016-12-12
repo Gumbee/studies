@@ -85,14 +85,14 @@ public class ZModMonoid implements Monoid<Integer> {
     }
 
     /**
-     * returns the additive inverse of an element
+     * returns the addition of two numbers
      */
     private final Integer addNumbers(Integer A, Integer B){
         return Math.floorMod((A+B), mod);
     }
 
     /**
-     * returns the multiplicative inverse of an element
+     * returns the multiplication of two numbers
      */
     private final Integer multiplyNumbers(Integer A, Integer B){
         return Math.floorMod((A*B),mod);

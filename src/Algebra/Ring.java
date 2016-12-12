@@ -14,6 +14,11 @@ public interface Ring<T> {
     public T add(T A, T B);
 
     /**
+     * performs a subtraction (addition with additive inverse) and returns the value (subtract A from B)
+     */
+    public T sub(T A, T B);
+
+    /**
      * performs a "multiplication" and returns the value
      */
     public T mult(T A, T B);

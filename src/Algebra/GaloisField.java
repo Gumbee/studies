@@ -26,6 +26,11 @@ public class GaloisField<T> implements Field<T> {
     }
 
     @Override
+    public T sub(T A, T B) {
+        return add(B, additiveInverse(A));
+    }
+
+    @Override
     public T mult(T A, T B) {
         return multiplicative.add(A, B);
     }

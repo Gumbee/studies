@@ -34,8 +34,13 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
     }
 
     @Override
+    public Polynomial<T> sub(Polynomial<T> A, Polynomial<T> B) {
+        return B.sub(A);
+    }
+
+    @Override
     public Polynomial<T> mult(Polynomial<T> A, Polynomial<T> B) {
-        return null;
+        return A.mult(B);
     }
 
     @Override

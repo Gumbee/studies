@@ -47,7 +47,7 @@ public class ZModGroup extends ZModMonoid implements Group<Integer> {
      * returns the additive inverse of an element
      */
     private final Integer additiveInverse(Integer A){
-        return (mod+1)-A;
+        return (mod)-A;
     }
 
     /**

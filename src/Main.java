@@ -19,7 +19,7 @@ public class Main {
         PolynomialField<Integer> PolynomialField = new PolynomialField<>(GF);
         PolynomialField<Polynomial<Integer>> PolyPolynomialField = new PolynomialField<>(PolynomialField);
 
-        Polynomial<Integer> a = new Polynomial<>(GF,2,3,1,1,5);
+        Polynomial<Integer> a = new Polynomial<>(GF,2,3,1,1,5,6);
         Polynomial<Integer> b = new Polynomial<>(GF,1,1,2,2);
         Polynomial<Integer> c = new Polynomial<>(GF,1,2);
         Polynomial<Integer> d = new Polynomial<>(GF,3,2,1,2);
@@ -33,10 +33,10 @@ public class Main {
         Polynomial<Polynomial<Polynomial<Integer>>> j = new Polynomial<>(PolyPolynomialField,"z", f,g);
         Polynomial<Polynomial<Polynomial<Integer>>> k = new Polynomial<>(PolyPolynomialField,"z", h,i);
 
-        a.print();
-        b.print();
+        h.print();
+        f.print();
 
-        j.add(k).print();
+        h.mult(f).print();
 
     }
 }

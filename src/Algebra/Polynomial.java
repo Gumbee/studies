@@ -1,6 +1,7 @@
 package Algebra;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -66,7 +67,7 @@ public class Polynomial<T> {
         }
 
         while (!stack.empty()) {
-            this.coefficients.add(stack.pop());
+            this.coefficients.add(field.add(field.additiveIdentity(), stack.pop()));
         }
 
     }
@@ -82,34 +83,88 @@ public class Polynomial<T> {
         // check if B is defined over the same field as this polynomial
         checkField(B);
 
-        ArrayList<T> sums = new ArrayList<>();
-
-        for(int i=0;i<Math.max(coefficients.size(), B.coefficients.size());i++){
-            int sizeA = coefficients.size();
-            int sizeB = B.coefficients.size();
-
-            // depending on which array is bigger, copy array A to the new polynomial and then add B or copy B and then
-            // add A (because degree of A may be bigger than degree of B or vice versa)
-            sums.add(i, (sizeA>=sizeB?coefficients.get(i):B.coefficients.get(i)));
-
-            if (i < (sizeA>=sizeB?B.coefficients.size():coefficients.size())) {
-                T value = field.add(sums.get(i), (sizeA>=sizeB?B.coefficients.get(i):coefficients.get(i)));
-
-                sums.set(i, value);
-            }
-        }
-
-        return new Polynomial<>(field, B.variable, sums);
+        return new Polynomial<>(field, B.variable, coefficientsAdd(coefficients, B.coefficients));
     }
 
     /**
-     * multiplies a polynomial with this polynomial and returns the result
+     * subtracts the polynomial B from this polynomial
+     */
+    public Polynomial<T> sub(Polynomial<T> B) {
+        // check if B is defined over the same field as this polynomial
+        checkField(B);
+
+        return new Polynomial<>(field, B.variable, coefficientsSub(B.coefficients, coefficients));
+    }
+
+    /**
+     * multiplies a polynomial with this polynomial and returns the result (naive algorithm)
      */
     public Polynomial<T> mult(Polynomial<T> B){
         // check if B is defined over the same field as this polynomial
         checkField(B);
 
-        return null;
+        ArrayList<T> a = new ArrayList<>(coefficients);
+        ArrayList<T> b = new ArrayList<>(B.coefficients);
+
+        ArrayList<T> result = new ArrayList<>();
+
+        for(int i=0;i<a.size()+b.size()-1;i++) {
+            result.add(field.additiveIdentity());
+        }
+
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<b.size();j++) {
+                T value = field.add(result.get(i+j), field.mult(a.get(i), b.get(j)));
+
+                result.set(i+j, value);
+            }
+        }
+
+        return new Polynomial<>(field, variable, result);
+    }
+
+    /**
+     * adds two ArrayLists as if they were coefficients of a polynomial
+     */
+    private ArrayList<T> coefficientsAdd(ArrayList<T> a, ArrayList<T> b){
+        ArrayList<T> sums = new ArrayList<>();
+
+        for(int i=0;i<Math.max(a.size(), b.size());i++){
+            int sizeA = a.size();
+            int sizeB = b.size();
+
+            // depending on which array is bigger, copy array A to the new polynomial and then add B or copy B and then
+            // add A (because degree of A may be bigger than degree of B or vice versa)
+            sums.add(i, (sizeA>=sizeB?a.get(i):b.get(i)));
+
+            if (i < (sizeA>=sizeB?b.size():a.size())) {
+                T value = field.add(sums.get(i), (sizeA>=sizeB?b.get(i):a.get(i)));
+
+                sums.set(i, value);
+            }
+        }
+
+        return sums;
+    }
+
+    /**
+     * subtracts two ArrayLists as if they were coefficients of a polynomial (subtract a from b)
+     */
+    private ArrayList<T> coefficientsSub(ArrayList<T> a, ArrayList<T> b){
+        ArrayList<T> sums = new ArrayList<>();
+
+        for(int i=0;i<Math.max(a.size(), b.size());i++){
+            int sizeA = a.size();
+            int sizeB = b.size();
+
+            sums.add(i, (i>=sizeB?field.additiveIdentity():b.get(i)));
+
+            T value = field.sub((i>=sizeA?field.additiveIdentity():a.get(i)), sums.get(i));
+
+            sums.set(i, value);
+        }
+
+        return sums;
     }
 
     /*==========================================
