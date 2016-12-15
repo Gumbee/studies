@@ -3,7 +3,7 @@ package Graphs;
 /**
  * Created by mugeebhassan on 01/12/16.
  */
-public class Edge<T> {
+public class Edge<T> implements Comparable<Edge<T>> {
 
     private Vertex<T> start;
     private Vertex<T> end;
@@ -28,4 +28,12 @@ public class Edge<T> {
         return end;
     }
 
+    /*==========================================
+         * Util Methods
+     ===========================================*/
+
+    @Override
+    public int compareTo(Edge<T> o) {
+        return weight-o.weight;
+    }
 }

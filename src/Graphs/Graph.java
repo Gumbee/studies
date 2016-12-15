@@ -37,10 +37,15 @@ public class Graph<T> {
     public void addVertex(T item){
         Vertex n = new Vertex(item);
         vertices.add(n);
+        // number them so we don't have to later
+        assignIndexToVertices();
+
     }
 
     public void addVertex(Vertex<T> vertex){
         vertices.add(vertex);
+        // number them so we don't have to later
+        assignIndexToVertices();
     }
 
     /**
@@ -53,7 +58,19 @@ public class Graph<T> {
         Vertex<T> endVertex = getVertex(end);
 
         addEdge(startVertex, endVertex, 1);
+    }
 
+    /**
+     * adds a weighted edge to the graph and the appropriate vertices
+     * @param start item representing the start vertex (vertex is created with this item)
+     * @param end item representing the end vertex (vertex is created with this item)
+     * @param weight int representing the edge's weight
+     */
+    public void addEdge(T start, T end, int weight) {
+        Vertex<T> startVertex = getVertex(start);
+        Vertex<T> endVertex = getVertex(end);
+
+        addEdge(startVertex, endVertex, weight);
     }
 
     public void addEdge(Vertex<T> start, Vertex<T> end) {
@@ -179,8 +196,6 @@ public class Graph<T> {
         Queue<Vertex<T>> queue = new LinkedList<>();
         queue.add(entry);
 
-        assignIndexToVertices();
-
         boolean[] visited = new boolean[vertices.size()];
 
         while (!queue.isEmpty()){
@@ -244,8 +259,6 @@ public class Graph<T> {
         Stack<Vertex<T>> stack = new Stack<>();
         stack.add(entry);
 
-        assignIndexToVertices();
-
         boolean[] visited = new boolean[vertices.size()];
 
         while (!stack.isEmpty()){
@@ -284,12 +297,11 @@ public class Graph<T> {
      */
     public final ArrayList<Vertex<T>> topologicalSort(){
 
-        assignIndexToVertices();
-
         // degree of incoming edges for each vertex. Everytime we pick the next vertex with degree = 0, we decrease
         // the degree of every neighbour by 1 and do the same for every vertex that reaches 0 after decrementing
         int[] incoming = new int[vertices.size()];
 
+        // vertices that reached a degree of 0
         Stack<Vertex<T>> toProcess = new Stack<>();
         // output array
         ArrayList<Vertex<T>> sortedList = new ArrayList<>();
@@ -310,7 +322,6 @@ public class Graph<T> {
             Vertex<T> v = toProcess.pop();
 
             sortedList.add(v);
-
 
             for(Edge<T> e: v.getOutgoingEdges()){
                 int index = e.getEnd().index;

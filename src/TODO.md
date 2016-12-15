@@ -6,7 +6,7 @@
 
 - [ ] Union Find
 - [ ] A-Star
-- [ ] Dijkstra
+- [ ] Dijkstra (balanced with AVL) (Fibonacci Heap)
 - [ ] Strongly Connected Graph
 - [ ] 2-Sat Problem
 - [ ] Euler Cycles
@@ -19,3 +19,4 @@
 ## Algebra
 
 - [ ] Polynomials (extends Ring)
+- [ ] Calculation parser

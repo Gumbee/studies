@@ -69,4 +69,13 @@ public class Vertex<T> {
     public final ArrayList<Edge<T>> getIncomingEdges(){
         return incomingEdges;
     }
+
+    /*==========================================
+         * Util Methods
+     ===========================================*/
+
+    @Override
+    public String toString() {
+        return item.toString();
+    }
 }
