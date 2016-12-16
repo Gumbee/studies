@@ -1,6 +1,10 @@
 import Algebra.*;
+import Graphs.Edge;
 import Graphs.Graph;
 import Graphs.Vertex;
+import Trees.AVLTree;
+import Trees.HeapNode;
+import Trees.HeapTree;
 
 import java.util.ArrayList;
 
@@ -11,19 +15,15 @@ public class Main {
 
     public static void main(String[] args){
 
-        Graph<String> graph = new Graph<>(false);
+        HeapTree<Integer> heap = new HeapTree<>();
 
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-
-        graph.addEdge("A", "B", 1);
-        graph.addEdge("B", "C", 1);
-        graph.addEdge("A", "D", 99);
-
-
-        graph.dijsktra("A", "C");
+        heap.add(12);
+        heap.add(1);
+        heap.add(7);
+        heap.add(3);
+        heap.add(4);
+        heap.add(2);
+        heap.add(6);
 
     }
 }
