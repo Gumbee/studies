@@ -13,6 +13,7 @@
 - [ ] 2-Sat Problem
 - [ ] Euler Cycles
 - [ ] MST
+- [ ] store vertices in a tree/hashmap so that performance is improved (maybe implement my own hashmap?)
 
 ## Utils
 
