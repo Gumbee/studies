@@ -45,3 +45,6 @@ Graph<String> graph = new Graph<>();
 | O(1)      | O(1)         | O(1)         | Add edge     | Adds a new edge to the graph                   |
 | O(1)      | O(\|E\|)     | O(\|E\|)     | isAdjacent   | Checks whether vertex B is reachable from vertex A|
 | O(1)      | O(\|E\|)     | O(\|E\|)     | getNeighbors | Finds all neighbors of a certain vertex        |
+| O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | O(\|V\|+\|E\|)   | topoSort | Sorts the graph topologically    |
+| O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | DFS | Performs a depth-first-search from vertex A |
+| O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | BFS | Performs a breadth-first-search from vertex A |

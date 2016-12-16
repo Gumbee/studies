@@ -24,10 +24,10 @@ public class Node<T extends Comparable<T>> {
     public T getItem(){
         return item;
     }
-
     /*==========================================
-     * Getter Methods
-     ===========================================*/
+         * Getter Methods
+         ===========================================*/
+
     public final Node<T> getParent(){
         return parent;
     }

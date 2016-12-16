@@ -5,24 +5,37 @@ import java.util.ArrayList;
 /**
  * Created by mugeebhassan on 01/12/16.
  */
-public class Vertex<T> {
+public class Vertex<T> implements Comparable<Vertex<T>> {
 
     // when assigning a number to each vertex, that number is stored in here
     public int index;
+    // placeholder for whatever value needs to be stored in this vertex temporarily
+    public double placeholder;
+    // whether or not the placeholder was initialized already (false could for example represent an infinity value
+    // for the placeholder-value)
+    public boolean placeholderInitialized;
 
     private T item;
     private ArrayList<Edge<T>> incomingEdges;
     private ArrayList<Edge<T>> outgoingEdges;
 
     public Vertex(){
-        this(null);
+        this(null, 0);
+        this.placeholderInitialized = false;
     }
 
     public Vertex(T item){
+        this(item, 0);
+        this.placeholderInitialized = false;
+    }
+
+    public Vertex(T item,double placeholder){
         incomingEdges = new ArrayList<>();
         outgoingEdges = new ArrayList<>();
 
         this.item = item;
+        this.placeholder = placeholder;
+        this.placeholderInitialized = true;
     }
 
     /**
@@ -55,7 +68,7 @@ public class Vertex<T> {
     }
 
     /*==========================================
-         * Getter Methods
+     * Getter Methods
      ===========================================*/
 
     public final T getItem(){
@@ -71,11 +84,16 @@ public class Vertex<T> {
     }
 
     /*==========================================
-         * Util Methods
+     * Util Methods
      ===========================================*/
 
     @Override
     public String toString() {
         return item.toString();
+    }
+
+    @Override
+    public int compareTo(Vertex<T> o) {
+        return o.placeholder>placeholder?-1:o.placeholder<placeholder?1:0;
     }
 }

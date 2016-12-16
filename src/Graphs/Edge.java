@@ -8,17 +8,21 @@ public class Edge<T> implements Comparable<Edge<T>> {
     private Vertex<T> start;
     private Vertex<T> end;
 
-    private int weight;
+    private double weight;
 
     public Edge(Vertex<T> start, Vertex<T> end) {
         this(start, end, 1);
     }
 
-    public Edge(Vertex<T> start, Vertex<T> end, int weight) {
+    public Edge(Vertex<T> start, Vertex<T> end, double weight) {
         this.start = start;
         this.end = end;
         this.weight = weight;
     }
+
+    /*==========================================
+     * Getter Methods
+     ===========================================*/
 
     public Vertex<T> getStart(){
         return start;
@@ -28,12 +32,16 @@ public class Edge<T> implements Comparable<Edge<T>> {
         return end;
     }
 
+    public double getWeight(){
+        return weight;
+    }
+
     /*==========================================
-         * Util Methods
+     * Util Methods
      ===========================================*/
 
     @Override
     public int compareTo(Edge<T> o) {
-        return weight-o.weight;
+        return weight<o.weight?-1:weight>o.weight?1:0;
     }
 }

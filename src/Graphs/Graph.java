@@ -1,9 +1,8 @@
 package Graphs;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import com.sun.istack.internal.Nullable;
+
+import java.util.*;
 
 /**
  * Created by mugeebhassan on 01/12/16.
@@ -66,7 +65,7 @@ public class Graph<T> {
      * @param end item representing the end vertex (vertex is created with this item)
      * @param weight int representing the edge's weight
      */
-    public void addEdge(T start, T end, int weight) {
+    public void addEdge(T start, T end, double weight) {
         Vertex<T> startVertex = getVertex(start);
         Vertex<T> endVertex = getVertex(end);
 
@@ -83,7 +82,7 @@ public class Graph<T> {
      * @param end the vertex where the edge ends
      * @param weight the weight of the edge
      */
-    public void addEdge(Vertex<T> start, Vertex<T> end, int weight){
+    public void addEdge(Vertex<T> start, Vertex<T> end, double weight){
         if(start == null || end == null){
             return;
         }
@@ -339,6 +338,131 @@ public class Graph<T> {
         return sortedList;
     }
 
+    public ArrayList<Edge<T>> dijsktra(T entry, T goal) {
+        Vertex<T> start = getVertex(entry);
+        Vertex<T> end = getVertex(goal);
+
+        return dijsktra(start, end);
+    }
+
+    /**
+     * searches for the shortest path using Dijkstra's algorithm. The shortest paths are relative to the entry point.
+     * Definition: vertex.placeholder stores the shortest distance to this vertex
+     * @param entry starting point from which all the shortest paths are calculated
+     * @param goal desired end
+     * @return an ArrayList of edges representing the shortest path from entry to goal
+     */
+    public ArrayList<Edge<T>> dijsktra(Vertex<T> entry, Vertex<T> goal){
+        if(entry == null){
+            throw new NullPointerException("No entry vertex found! Error in: graph.dijkstra");
+        }
+
+        for(Vertex<T> v:vertices){
+            v.placeholderInitialized = false;
+        }
+
+        // TODO: change to heap (fibonacci heap?)
+        boolean[] visited = new boolean[vertices.size()];
+        // a false value here is equal to setting the vertexDistances-value to infinity
+
+        // vertices that are yet to be processed and haven't finalized their shortest distance yet
+        LinkedList<Vertex<T>> toProcess = new LinkedList<>();
+        toProcess.add(entry);
+
+
+        while (!toProcess.isEmpty()){
+            Vertex<T> vertex = null;
+            for (Vertex<T> v : toProcess) {
+                if (vertex == null || (v.placeholder < vertex.placeholder && v.placeholderInitialized)) {
+                    vertex = v;
+                }
+            }
+            // mark the current vertex as visited
+            visited[vertex.index] = true;
+            toProcess.remove(vertex);
+
+            System.out.println("Dijkstra visited " + vertex.getItem().toString());
+
+            if(vertex.equals(goal)){
+                //return pathToGoal;
+            }
+
+
+            for(Edge<T> e: vertex.getOutgoingEdges()){
+                Vertex<T> w = e.getEnd();
+                if(!visited[w.index]){
+                    toProcess.add(w);
+                    visited[w.index] = true;
+                }
+                if(w.placeholder > vertex.placeholder + e.getWeight() || !w.placeholderInitialized){
+                    w.placeholder = vertex.placeholder + e.getWeight();
+                    // after the first time that we assign a shortest distance value to a vertex, mark it as initialized
+                    // so we don't treat it as if it had a distance value of infinity
+                    w.placeholderInitialized = true;
+                }
+            }
+
+        }
+
+        System.out.println("Woah, we reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
+
+        return null;
+    }
+
+    public ArrayList<Edge<T>> bellmanFord(T entry, T goal) {
+        Vertex<T> start = getVertex(entry);
+        Vertex<T> end = getVertex(goal);
+
+        return bellmanFord(start, end);
+    }
+
+    /**
+     * searches for the shortest path using the Bellman-Ford algorithm. The shortest paths are relative to the entry
+     * point. The difference between the Bellman-Ford algorithm and Dijkstra's algorithm is that the
+     * Bellman-Ford algorithm can handle negative weight values. However the disadvantage is that it is slower
+     * than Dijkstra's algorithm.
+     * @param entry starting point from which all the shortest paths are calculated
+     * @param goal desired end
+     * @return an ArrayList of edges representing the shortest path from entry to goal
+     */
+    public ArrayList<Edge<T>> bellmanFord(Vertex<T> entry, Vertex<T> goal) {
+
+        for(Vertex<T> v:vertices){
+            v.placeholderInitialized = false;
+        }
+
+        entry.placeholder = 0;
+
+        for(int i=0;i<vertices.size()-1;i++){
+            for(Vertex<T> v: vertices){
+                // relax all of v's neighbours
+                for(Edge<T> e: v.getOutgoingEdges()){
+                    Vertex<T> w = e.getEnd();
+                    // relaxation process
+                    if(!w.placeholderInitialized || w.placeholder > v.placeholder + e.getWeight()){
+                        w.placeholder = v.placeholder + e.getWeight();
+                        // mark as initialized so we don't treat w.placeholder as a value equal to infinity
+                        w.placeholderInitialized = true;
+                    }
+                }
+            }
+        }
+
+        for(Edge<T> e:edges){
+            // since we have relaxed n-1 times, we should be able to detect a negative cycle by relaxing all
+            // edges once more and checking if any of the values change
+            Vertex<T> v = e.getStart();
+            Vertex<T> w = e.getEnd();
+            if(w.placeholder > v.placeholder + e.getWeight()){
+                throw new RuntimeException("Negative cycle found! Bellman-Ford algorithm can't deal with negative cycles ");
+            }
+        }
+
+        System.out.println("Woah, we reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
+
+        return null;
+    }
+
 
     /*==========================================
      * Getter Methods
@@ -361,7 +485,7 @@ public class Graph<T> {
     /**
      * given an item it returns the vertex that has that particular item as item
      */
-    private final Vertex<T> getVertex(T item){
+    private Vertex<T> getVertex(T item){
         for(Vertex<T> vertex : vertices){
             if(vertex.getItem() == item){
                 return vertex;

@@ -84,3 +84,16 @@ for(Vertex<Task> task: sorted){
     task.getItem().execute();
 }
 ```
+
+#### Find shortest paths
+
+For shortest paths in a graph with only non-negative numbers, use the Dijkstra-method:
+
+```Java
+ArrayList<Vertex<Station>> path = graph.dijkstra()
+
+for(Vertex<Task> task: sorted){
+    // execute the tasks in order
+    task.getItem().execute();
+}
+```
