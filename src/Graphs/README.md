@@ -77,7 +77,7 @@ boolean dfsFoundVertex = graph.DFS(startVertex, desiredVertex);
 
 ```Java
 // sorts the graph topologically and returns the result
-ArrayList<Vertex<Task>> sorted = graph.topologicalSort()
+ArrayList<Vertex<Task>> sorted = graph.topologicalSort();
 
 for(Vertex<Task> task: sorted){
     // execute the tasks in order
@@ -90,10 +90,19 @@ for(Vertex<Task> task: sorted){
 For shortest paths in a graph with only non-negative numbers, use the Dijkstra-method:
 
 ```Java
-ArrayList<Vertex<Station>> path = graph.dijkstra()
+ArrayList<Vertex<Station>> path = graph.dijkstra(myStation, myHome);
 
-for(Vertex<Task> task: sorted){
-    // execute the tasks in order
-    task.getItem().execute();
+for(Vertex<Station> station: path){
+    // do something with the shortest path...
+}
+```
+
+If there are negative values, use Bellman-Ford's algorithm:
+
+```Java
+ArrayList<Vertex<Reaction>> minEntropy = graph.bellmanFord(myState, goalState);
+
+for(Vertex<Reaction> reaction: minEntropy){
+    // do something with the shortest path...
 }
 ```

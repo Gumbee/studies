@@ -13,11 +13,28 @@ BinaryTree<Integer> tree = new BinaryTree<>();
 ```
 
 ##### Analysis:
-| Best Case | Worst Case | Expected | Opeartion   | Description                          |
+| Best Case | Worst Case | Expected | Operation   | Description                          |
 |-----------|------------|----------|-------------|--------------------------------------|
 | *O(1)*      | *O(n)*       | *O(log n)* | Insert vertex | Inserts a vertex into the tree         |
 | *O(1)*      | *O(n)*       | *O(log n)* | Delete vertex | Deletes a vertex and "repairs" the gap |
 | *O(1)*      | *O(n)*       | *O(log n)* | Find a vertex | Searches for a vertex and outputs it   |
+
+### Binary Heap Tree
+
+```Java
+// create a Heap-Tree
+HeapTree<Integer> heap = new HeapTree<>();
+
+// create a Heap-Tree with a custom comparator
+// this tree sorts the roads by shortest road distance
+HeapTree<Road> minDistanceHeap = new HeapTree<>((a,b) -> a.distance-b.distance);
+```
+
+##### Analysis
+| Best Case | Worst Case | Expected | Operation   | Description                                          |
+|-----------|------------|----------|-------------|------------------------------------------------------|
+| *O(1)*      | *O(log n)*   | *O(log n)* | Insert vertex | Inserts a vertex into the tree and restores heap property |
+| *O(1)*      | *O(n)*   | *O(n)* | Find a vertex | Searches for a vertex and outputs it                   |
 
 ### AVL-Tree
 
@@ -27,7 +44,7 @@ AVLTree<Integer> tree = new AVLTree<>();
 ```
 
 ##### Analysis
-| Best Case | Worst Case | Expected | Opeartion   | Description                                          |
+| Best Case | Worst Case | Expected | Operation   | Description                                          |
 |-----------|------------|----------|-------------|------------------------------------------------------|
 | *O(1)*      | *O(log n)*   | *O(log n)* | Insert vertex | Inserts a vertex into the tree and rebalances the tree |
 | *O(1)*      | *O(log n)*   | *O(log n)* | Find a vertex | Searches for a vertex and outputs it                   |
@@ -39,7 +56,7 @@ AVLTree<Integer> tree = new AVLTree<>();
 Graph<String> graph = new Graph<>();
 ```
 
-| Best Case | Worst Case   | Expected     | Opeartion    | Description                                    |
+| Best Case | Worst Case   | Expected     | Operation    | Description                                    |
 |-----------|--------------|--------------|--------------|------------------------------------------------|
 | O(1)      | O(1)         | O(1)         | Add vertex   | Adds a new vertex to the graph                 |
 | O(1)      | O(1)         | O(1)         | Add edge     | Adds a new edge to the graph                   |
@@ -48,3 +65,5 @@ Graph<String> graph = new Graph<>();
 | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | O(\|V\|+\|E\|)   | topoSort | Sorts the graph topologically    |
 | O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | DFS | Performs a depth-first-search from vertex A |
 | O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | BFS | Performs a breadth-first-search from vertex A |
+| O(\|V\|*\|V\|) | O(\|V\|*\|V\|) | O(\|V\|*\|V\|) | Dijkstra | Searches for the shortest path starting from A |
+| O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | Bellman-Ford | Searches for the shortest path starting from A |

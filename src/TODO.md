@@ -2,6 +2,8 @@
 
 - [ ] Heap Tree
 - [ ] Heap sort
+- [ ] Delete functionality for all trees
+
 ## Graphs
 
 - [ ] Union Find
