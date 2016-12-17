@@ -1,9 +1,12 @@
 package Trees;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * Created by mugeebhassan on 25/11/16.
  */
-public class Node<T extends Comparable<T>> {
+public class Node<T> {
 
     private T item;
 
@@ -11,22 +14,29 @@ public class Node<T extends Comparable<T>> {
     private Node<T> leftChild;
     private Node<T> rightChild;
 
+    private Comparator<T> comparator;
+
     //  1 if the right subtree is deeper
     //  0 if both subtrees are equal in depth
     // -1 if the left subtree is deeper
     public int balance = 0;
 
-
     public Node(T item){
+        this(item, null);
+    }
+
+    public Node(T item, Comparator<T> comparator){
         this.item = item;
+        this.comparator = comparator;
     }
 
     public T getItem(){
         return item;
     }
+
     /*==========================================
-         * Getter Methods
-         ===========================================*/
+     * Getter Methods
+     ===========================================*/
 
     public final Node<T> getParent(){
         return parent;
@@ -43,6 +53,7 @@ public class Node<T extends Comparable<T>> {
     /*==========================================
      * Setter Methods
      ===========================================*/
+
     public final void setParent(Node<T> parent){
         this.parent = parent;
     }
@@ -61,7 +72,39 @@ public class Node<T extends Comparable<T>> {
         }
     }
 
+    /*==========================================
+     * Util Methods
+     ===========================================*/
+
     public int compareTo(Node<T> o) {
-        return item.compareTo(o.getItem());
+        if (comparator != null)
+            return compareUsingComparator(o.getItem());
+        else{
+            return compareComparable(o.getItem());
+        }
+    }
+
+    /**
+     * if no custom comparator is specified, the items will be treated as comparable elements and their
+     * standard comparable-comparison is used
+     * @param o item that this item is compared to
+     */
+    @SuppressWarnings("unchecked")
+    private int compareComparable(T o){
+        Comparable<? super T> that = (Comparable<? super T>) item;
+        return that.compareTo(o);
+    }
+
+    /**
+     * compares two elements by using a custom comparator
+     * @param o item that this item is compared to
+     */
+    private int compareUsingComparator(T o){
+        return comparator.compare(item, o);
+    }
+
+    @Override
+    public String toString() {
+        return item.toString();
     }
 }

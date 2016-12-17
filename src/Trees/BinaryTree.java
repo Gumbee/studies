@@ -82,75 +82,29 @@ public class BinaryTree<T extends Comparable<T>> {
      * prints out the tree in a formatted manner
      */
     public final void printTree() {
-
-        // padding can either be 1 or 2 and defines the space between the nodes
-        int padding = 1;
-
-        Queue<Queue<Node<T>>> levels = getLevels();
-
-        int index = levels.size();
-
-        for(Queue<Node<T>> level: levels){
-            for(Node<T> node: level){
-
-                int itemLength = node!=null?node.getItem().toString().length():1;
-                String itemString = node!=null?"\u001B[0m"+node.getItem().toString():"\u001B[31mØ";
-
-                String spacingBefore = "";
-                String spacingAfter = "";
-
-                for(int i=0;i<padding*Math.pow(2,index)-1-Math.floor((itemLength-1)/2);i++){
-                    spacingBefore += " ";
-                }
-                for(int i=0;i<padding*Math.pow(2,index)-1-(itemLength-1)+Math.ceil((itemLength-1)/2);i++){
-                    spacingAfter += " ";
-                }
-
-                System.out.print(spacingBefore + itemString + spacingAfter + " ");
-            }
-
-            // draw the connections between the nodes
-            for(int i=0;i<Math.pow(2,index-(2-padding))-1;i++){
-                System.out.println();
-                for(Node<T> node: level){
-                    for(int j=0;j<(padding*Math.pow(2,index)*2);j++) {
-                        if(j == padding * Math.pow(2,index)-(i+2)){
-                            System.out.print("\u001B[30m/");
-                        }else if(j == padding * Math.pow(2,index)+(i)){
-                            System.out.print("\u001B[30m\\");
-                        }else{
-                            System.out.print(" ");
-                        }
-                    }
-                }
-            }
-
-            index--;
-            System.out.println();
-        }
-
+        BinaryTree.printBinaryTree(getLevels());
     }
 
     /**
      * Each level of the tree is stored in a LinkedList and a LinkedList containing all LinkedLists is then returned.
      * @return LinkedList containing a LinkedList for each level of the tree
      */
-    private final Queue<Queue<Node<T>>> getLevels(){
+    private Queue<Queue<Node<?>>> getLevels(){
         // hasNonNullItem checks if there are still other nodes than null left on a certain level (depth)
         boolean hasNonNullItem = true;
 
-        Queue<Queue<Node<T>>> levels = new LinkedList<>();
+        Queue<Queue<Node<?>>> levels = new LinkedList<>();
 
-        Queue<Node<T>> currentLevel = new LinkedList<>();
+        Queue<Node<?>> currentLevel = new LinkedList<>();
 
         currentLevel.add(root);
 
         while (hasNonNullItem){
-            LinkedList<Node<T>> nextLevel = new LinkedList<>();
+            LinkedList<Node<?>> nextLevel = new LinkedList<>();
 
             hasNonNullItem = false;
 
-            for(Node<T> node: currentLevel){
+            for(Node<?> node: currentLevel){
 
                 if(node != null && node.getLeftChild() != null) {
                     nextLevel.add(node.getLeftChild());
@@ -173,5 +127,51 @@ public class BinaryTree<T extends Comparable<T>> {
         return levels;
     }
 
+    static void printBinaryTree(Queue<Queue<Node<?>>> levels){
+        // padding can either be 1 or 2 and defines the space between the nodes
+        int padding = 1;
+
+        int index = levels.size();
+
+        for(Queue<Node<?>> level: levels){
+            for(Node<?> node: level){
+
+                int itemLength = node!=null?node.getItem().toString().length():1;
+                String itemString = node!=null?"\u001B[0m"+node.getItem().toString():"\u001B[31mØ";
+
+                String spacingBefore = "";
+                String spacingAfter = "";
+
+                for(int i=0;i<padding*Math.pow(2,index)-1-Math.floor((itemLength-1)/2);i++){
+                    spacingBefore += " ";
+                }
+                for(int i=0;i<padding*Math.pow(2,index)-1-(itemLength-1)+Math.ceil((itemLength-1)/2);i++){
+                    spacingAfter += " ";
+                }
+
+                System.out.print(spacingBefore + itemString + spacingAfter + " ");
+            }
+
+            // draw the connections between the nodes
+            for(int i=0;i<Math.pow(2,index-(2-padding))-1;i++){
+                System.out.println();
+                for(Node<?> node: level){
+                    for(int j=0;j<(padding*Math.pow(2,index)*2);j++) {
+                        if(j == padding * Math.pow(2,index)-(i+2)){
+                            System.out.print("\u001B[30m/");
+                        }else if(j == padding * Math.pow(2,index)+(i)){
+                            System.out.print("\u001B[30m\\");
+                        }else{
+                            System.out.print(" ");
+                        }
+                    }
+                }
+            }
+
+            index--;
+            // reset color
+            System.out.println("\u001B[0m");
+        }
+    }
 
 }

@@ -33,7 +33,7 @@ HeapTree<Road> minDistanceHeap = new HeapTree<>((a,b) -> a.distance-b.distance);
 ##### Analysis
 | Best Case | Worst Case | Expected | Operation   | Description                                          |
 |-----------|------------|----------|-------------|------------------------------------------------------|
-| *O(1)*      | *O(log n)*   | *O(log n)* | Insert vertex | Inserts a vertex into the tree and restores heap property |
+| *O(1)*      | *O(log n)*   | *O(log n)* | Insert vertex | Inserts a vertex and restores heap property |
 | *O(1)*      | *O(n)*   | *O(n)* | Find a vertex | Searches for a vertex and outputs it                   |
 
 ### AVL-Tree
