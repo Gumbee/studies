@@ -10,9 +10,9 @@ import java.util.*;
 public class HeapTree<T> {
 
     // we store the tree as ArrayList
-    ArrayList<Node<T>> heap;
+    protected ArrayList<Node<T>> heap;
     // comparator that is used to compare the Nodes
-    Comparator<T> comparator;
+    protected Comparator<T> comparator;
 
     /**
      * creates a heap-tree with a default comparator (only works for comparable objects).
@@ -30,12 +30,80 @@ public class HeapTree<T> {
         this.comparator = comparator;
     }
 
+    /*==========================================
+     * Tree Operation Methods
+     ===========================================*/
+
     /**
      * creates a new Node with an item as its content and then inserts it into the tree
      */
     public void add(T item){
         heap.add(new Node<>(item, comparator));
         bubbleUp(heap.size()-1);
+    }
+
+    /**
+     * removes the first occurrence of the specified element and restores the heap property.
+     * @param item the item that is to be removed from the heap
+     */
+    public void removeElement(T item){
+        for(int i=0;i<heap.size();i++){
+            if(heap.get(i).getItem().equals(item)){
+                remove(i);
+            }
+        }
+    }
+
+    /**
+     * removes the item at the specified index and restores the heap property.
+     * @param index the index of the element that is to be deleted
+     */
+    public void remove(int index){
+        // if we want to remove the last element, we can do it without any additional
+        // operations
+        if(index == heap.size()-1){
+            heap.remove(index);
+            return;
+        }
+        Node<T> toRemove = heap.get(index);
+        // swap the item that is to be removed with the last item in the heap
+        heap.set(index, heap.get(heap.size()-1));
+        heap.set(heap.size()-1, toRemove);
+        // remove item before we restore the heap property
+        heap.remove(heap.size()-1);
+        restoreHeapAtIndex(index);
+    }
+
+    /**
+     * replaces the item at index i with a specified item and restores the heap property
+     * @param index the index of the element that is to be replaced
+     * @param value the new item
+     */
+    public void replace(int index, T value){
+        heap.set(index, new Node<>(value, comparator));
+        restoreHeapAtIndex(index);
+    }
+
+    /**
+     * returns the heap's root (the smallest or biggest element, depending on the comparator) without removing it
+     */
+    public T peekMin(){
+        if (heap.size() == 0) {
+            throw new RuntimeException("heap is empty! Error occurred in: heap.peekMin");
+        }
+        return heap.get(0).getItem();
+    }
+
+    /**
+     * returns the heap's root (the smallest or biggest element, depending on the comparator)
+     */
+    public T popMin(){
+        if (heap.size() == 0) {
+            throw new RuntimeException("heap is empty! Error occurred in: heap.popMin");
+        }
+        T min = heap.get(0).getItem();
+        remove(0);
+        return min;
     }
 
     /*==========================================
@@ -47,6 +115,10 @@ public class HeapTree<T> {
      */
     public ArrayList<Node<T>> getHeap() {
         return heap;
+    }
+
+    public boolean isEmpty(){
+        return heap.size() == 0;
     }
 
     /*==========================================
@@ -61,7 +133,8 @@ public class HeapTree<T> {
     }
 
     /**
-     * Each level of the tree is stored in a LinkedList and a LinkedList containing all LinkedLists is then returned.
+     * Each level of the tree is stored in a LinkedList and a
+     * LinkedList containing all LinkedLists is then returned.
      * @return LinkedList containing a LinkedList for each level of the tree
      */
     private final Queue<Queue<Node<?>>> getLevels(){
@@ -93,14 +166,22 @@ public class HeapTree<T> {
         return levels;
     }
 
-
     /*==========================================
-     * Private Methods
+     * Private/Protected Methods
     ===========================================*/
 
     /**
-     * takes the node at the specified index and lets it rise to the top for as long as the node is smaller than
-     * the parent (or greater, depends on your specified comparator)
+     * restores the heap property by either bubbling up the item at the specified index or bubbling it down.
+     * @param index the item's index
+     */
+    protected void restoreHeapAtIndex(int index){
+        bubbleUp(index);
+        bubbleDown(index);
+    }
+
+    /**
+     * takes the node at the specified index and lets it rise to the top for as
+     * long as the node is smaller than the parent (or greater, depends on your specified comparator)
      * @param index index of the node whose position must be corrected
      */
     private void bubbleUp(int index){
@@ -126,8 +207,8 @@ public class HeapTree<T> {
     }
 
     /**
-     * takes the node at the specified index and lets it rise to the top for as long as the node is smaller than
-     * the parent (or greater, depends on your specified comparator)
+     * takes the node at the specified index and lets it rise to the bottom for as long as the node is bigger than
+     * the parent (or smaller, depends on your specified comparator)
      * @param index index of the node whose position must be corrected
      */
     private void bubbleDown(int index){
@@ -168,20 +249,18 @@ public class HeapTree<T> {
 
     }
 
-    public void replaceItem(int index, T value){
-        heap.set(index, new Node<>(value, comparator));
-        bubbleDown(index);
-        bubbleUp(index);
-    }
-
     /**
      * swaps the nodes at index i and j
      */
-    private void swap(int i, int j){
+    protected void swap(int i, int j){
         Node<T> tmp = heap.get(i);
         heap.set(i, heap.get(j));
         heap.set(j, tmp);
     }
+
+    /*==========================================
+     * Debugging
+    ===========================================*/
 
     /**
      * checks if the tree satisfies heap condition. Mainly for debugging purposes

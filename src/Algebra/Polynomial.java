@@ -10,11 +10,11 @@ import java.util.Stack;
 public class Polynomial<T> {
 
     // coefficients of the polynomial
-    public ArrayList<T> coefficients;
+    private ArrayList<T> coefficients;
     // field over which the polynomial is defined
     public Field<T> field;
     // string representation of the polynomials variable (e.g "x")
-    private String variable;
+    public String variable;
 
     @SafeVarargs
     public Polynomial(Field<T> field, T... coefficients){
@@ -123,6 +123,47 @@ public class Polynomial<T> {
         return new Polynomial<>(field, variable, result);
     }
 
+
+    /**
+     * divides this polynomial with the polynomial B and returns the result (without the remainder). division is
+     * euclidean division
+     * @return the quotient
+     */
+    public Polynomial<T> div(Polynomial<T> B){
+        // check if M is defined over the same field as this polynomial
+        checkField(B);
+
+        Polynomial<T> quotient = new Polynomial<>(field, variable, field.additiveIdentity());
+        Polynomial<T> remainder = this;
+        T leadingCoefficientB = B.getCoefficients().get(B.getCoefficients().size()-1);
+
+        int degreeB  = B.deg();
+
+        while (remainder.deg() >= degreeB){
+            T leading = field.div(remainder.getCoefficients().get(remainder.coefficients.size()-1), leadingCoefficientB);
+
+            ArrayList<T> newCoefficients = new ArrayList<>();
+
+            for(int i=0;i<remainder.deg()-degreeB;i++){
+                newCoefficients.add(field.additiveIdentity());
+            }
+            newCoefficients.add(leading);
+
+            Polynomial<T> leadingPolynomial = new Polynomial<>(field, variable, newCoefficients);
+
+            quotient = quotient.add(leadingPolynomial);
+            remainder =  remainder.sub(leadingPolynomial.mult(B));
+        }
+
+        System.out.println("RESULT:\n" + toString() + " : " + B.toString() + " = " + quotient.toString() + " with remainder: " + remainder.toString());
+        System.out.print("TEST:" + (quotient.mult(B).add(remainder).equals(this)?" passed ✓":" failed ✗"));
+        quotient.mult(B).add(remainder).print();
+
+        return null;
+    }
+
+
+
     /**
      * adds two ArrayLists as if they were coefficients of a polynomial
      */
@@ -168,6 +209,18 @@ public class Polynomial<T> {
     }
 
     /*==========================================
+     * Getter methods
+     ===========================================*/
+
+    public ArrayList<T> getCoefficients() {
+        return coefficients;
+    }
+
+    public int deg(){
+        return coefficients.size();
+    }
+
+    /*==========================================
      * Private methods
      ===========================================*/
 
@@ -199,7 +252,7 @@ public class Polynomial<T> {
      */
     private String polynomialToString(){
         if(coefficients.size() == 0){
-            return "";
+            return field.additiveIdentity().toString();
         }
 
         if(coefficients.size() == 1 && coefficients.get(0) == field.multiplicativeIdentity()){

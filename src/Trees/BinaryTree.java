@@ -1,25 +1,36 @@
 package Trees;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
  * Created by mugeebhassan on 25/11/16.
  */
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T> {
 
     protected Node<T> root;
-    protected int count = 0;
+    // number of items in the three
+    protected int size = 0;
 
-    ArrayList<Character>[] tree;
+    private Comparator<T> comparator;
 
     public BinaryTree(){
-        this(null);
+        this(null, null);
     }
 
     public BinaryTree(Node<T> root){
+        this(root, null);
+    }
+
+    public BinaryTree(Comparator<T> comparator){
+        this(null, comparator);
+    }
+
+    public BinaryTree(Node<T> root, Comparator<T> comparator){
         setRoot(root);
+        this.comparator = comparator;
     }
 
     public final boolean isEmpty(){
@@ -30,10 +41,10 @@ public class BinaryTree<T extends Comparable<T>> {
      * creates a new node with an item as its content and then inserts it into the tree
      */
     public void add(T item){
-        Node<T> node = new Node<>(item);
+        Node<T> node = new Node<>(item, comparator);
         // insert the new node into the tree and start the insertion process at the root
         insertNode(root, node);
-        count++;
+        size++;
     }
 
     /**
@@ -57,7 +68,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
             canGoLeft = current.getLeftChild() != null && current.compareTo(node) > 0;
             canGoRight = current.getRightChild() != null && current.compareTo(node) < 0;
-
         }
 
         if(current.compareTo(node) < 0){

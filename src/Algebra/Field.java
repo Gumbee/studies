@@ -5,6 +5,12 @@ package Algebra;
  */
 public interface Field<T> extends Ring<T>{
 
+
+    /**
+     * performs a "multiplication" and returns the value
+     */
+    public T div(T A, T B);
+
     /**
      * returns the additive inverse
      */

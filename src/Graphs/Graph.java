@@ -1,6 +1,7 @@
 package Graphs;
 
-import com.sun.istack.internal.Nullable;
+import Trees.HeapTree;
+import Trees.QuickAccessHeapTree;
 
 import java.util.*;
 
@@ -96,6 +97,8 @@ public class Graph<T> {
 
         if(!directed){
             e = new Edge<>(end, start, weight);
+
+            edges.add(e);
 
             start.addEdge(e);
             end.addEdge(e);
@@ -353,33 +356,36 @@ public class Graph<T> {
      * @return an ArrayList of edges representing the shortest path from entry to goal
      */
     public ArrayList<Edge<T>> dijsktra(Vertex<T> entry, Vertex<T> goal){
-        if(entry == null){
-            throw new NullPointerException("No entry vertex found! Error in: graph.dijkstra");
+        if(entry == null || goal == null){
+            throw new NullPointerException("entry or goal vertex was not found! Error in: graph.dijkstra");
         }
 
         for(Vertex<T> v:vertices){
+            // a false value here is equal to setting the vertexDistances-value to infinity
             v.placeholderInitialized = false;
         }
 
-        // TODO: change to heap (fibonacci heap?)
         boolean[] visited = new boolean[vertices.size()];
-        // a false value here is equal to setting the vertexDistances-value to infinity
 
+        // TODO: change to heap (fibonacci heap?)
         // vertices that are yet to be processed and haven't finalized their shortest distance yet
-        LinkedList<Vertex<T>> toProcess = new LinkedList<>();
+//        LinkedList<Vertex<T>> toProcess = new LinkedList<>();
+//        toProcess.add(entry);
+
+        // TODO: look into how the values update in the heap
+        QuickAccessHeapTree<Vertex<T>> toProcess = new QuickAccessHeapTree<>((a, b) -> a.placeholder-b.placeholder<0?-1:a.placeholder-b.placeholder>0?1:0);
         toProcess.add(entry);
 
-
         while (!toProcess.isEmpty()){
-            Vertex<T> vertex = null;
-            for (Vertex<T> v : toProcess) {
-                if (vertex == null || (v.placeholder < vertex.placeholder && v.placeholderInitialized)) {
-                    vertex = v;
-                }
-            }
+            System.out.println("================================");
+            toProcess.printTree();
+            // pops the smallest element
+            Vertex<T> vertex = toProcess.popMin();
+            System.out.println();
+            toProcess.printTree();
+
             // mark the current vertex as visited
             visited[vertex.index] = true;
-            toProcess.remove(vertex);
 
             System.out.println("Dijkstra visited " + vertex.getItem().toString());
 
@@ -396,15 +402,20 @@ public class Graph<T> {
                 }
                 if(w.placeholder > vertex.placeholder + e.getWeight() || !w.placeholderInitialized){
                     w.placeholder = vertex.placeholder + e.getWeight();
+                    toProcess.updateKey(w);
                     // after the first time that we assign a shortest distance value to a vertex, mark it as initialized
                     // so we don't treat it as if it had a distance value of infinity
                     w.placeholderInitialized = true;
                 }
             }
 
+            System.out.println();
+            toProcess.printTree();
+
+
         }
 
-        System.out.println("Woah, we reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
+        System.out.println("We reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
 
         return null;
     }
@@ -426,24 +437,26 @@ public class Graph<T> {
      * @return an ArrayList of edges representing the shortest path from entry to goal
      */
     public ArrayList<Edge<T>> bellmanFord(Vertex<T> entry, Vertex<T> goal) {
+        if(entry == null || goal == null){
+            throw new NullPointerException("entry or goal vertex was not found! Error in: graph.bellmanFord");
+        }
 
         for(Vertex<T> v:vertices){
             v.placeholderInitialized = false;
         }
 
         entry.placeholder = 0;
+        entry.placeholderInitialized = true;
 
         for(int i=0;i<vertices.size()-1;i++){
-            for(Vertex<T> v: vertices){
-                // relax all of v's neighbours
-                for(Edge<T> e: v.getOutgoingEdges()){
-                    Vertex<T> w = e.getEnd();
-                    // relaxation process
-                    if(!w.placeholderInitialized || w.placeholder > v.placeholder + e.getWeight()){
-                        w.placeholder = v.placeholder + e.getWeight();
-                        // mark as initialized so we don't treat w.placeholder as a value equal to infinity
-                        w.placeholderInitialized = true;
-                    }
+            for(Edge<T> e: edges){
+                Vertex<T> v = e.getStart();
+                Vertex<T> w = e.getEnd();
+                // relaxation process
+                if((v.placeholderInitialized && !w.placeholderInitialized) || w.placeholder > v.placeholder + e.getWeight()){
+                    w.placeholder = v.placeholder + e.getWeight();
+                    // mark as initialized so we don't treat w.placeholder as a value equal to infinity
+                    w.placeholderInitialized = true;
                 }
             }
         }
@@ -458,7 +471,7 @@ public class Graph<T> {
             }
         }
 
-        System.out.println("Woah, we reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
+        System.out.println("We reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
 
         return null;
     }
@@ -494,7 +507,6 @@ public class Graph<T> {
 
         return null;
     }
-
 
     /*==========================================
      * Private Methods

@@ -1,9 +1,27 @@
 package Trees;
 
+import java.util.Comparator;
+
 /**
  * Created by mugeebhassan on 30/11/16.
  */
-public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
+public class AVLTree<T> extends BinaryTree<T> {
+
+    public AVLTree(){
+        this(null, null);
+    }
+
+    public AVLTree(Node<T> root){
+        this(root, null);
+    }
+
+    public AVLTree(Comparator<T> comparator){
+        this(null, comparator);
+    }
+
+    public AVLTree(Node<T> root, Comparator<T> comparator){
+        super(root, comparator);
+    }
 
     /**
      * inserts a node into the tree and balances out the tree if necessary
@@ -21,8 +39,6 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
         System.out.println();
         System.out.println();
         */
-
-        return;
     }
 
 
@@ -40,25 +56,38 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
             int balanceChange = node.compareTo(parent) > 0 ? 1 : -1;
             int superParentBalance = superParent != null ? parent.getParent().balance : 0;
 
+            // we only update the parent immediately because the superParent will be updated when
+            // the while loop moves on to the next iteration and superParent becomes
+            // parent and superSuperParent becomes superParent
             parent.balance += balanceChange;
 
+            // if the parent's balance got even worse than it was, correct the
+            // balance immediately
             if (parent.balance > 1) {
                 leftRotation(parent, node);
                 return;
             }
 
+            // if the parent's balance got even worse than it was, correct the
+            // balance immediately
             if (parent.balance < -1) {
                 rightRotation(parent, node);
                 return;
             }
 
-            if (superParentBalance > 0 && parent.balance < 0) {
+            // if the superParent's balance is shifted to the right and the parent's balance is shifted to the left
+            // it will only get worse (for the superParent) if we are on the superParent's right branch and
+            // therefore we perform a right-left-rotation
+            if (superParentBalance > 0 && parent.balance < 0 && node.compareTo(superParent) > 0) {
                 rightRotation(parent, node);
                 leftRotation(superParent, node);
                 return;
             }
 
-            if (superParentBalance < 0 && parent.balance > 0) {
+            // if the superParent's balance is shifted to the left and the parent's balance is shifted to the right
+            // it will only get worse (for the superParent) if we are on the superParent's left branch and
+            // therefore we perform a left-right-rotation
+            if (superParentBalance < 0 && parent.balance > 0 && node.compareTo(superParent) < 0) {
                 leftRotation(parent, node);
                 rightRotation(superParent, node);
                 return;
@@ -69,6 +98,7 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
             }else{
                 return;
             }
+
         }
 
     }

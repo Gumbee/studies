@@ -89,7 +89,7 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
 
     @Override
     public String toString() {
-        return item.toString();
+        return item.toString() + "-" + placeholder;
     }
 
     @Override

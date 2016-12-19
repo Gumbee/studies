@@ -20,7 +20,12 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
 
     @Override
     public Polynomial<T> multiplicativeInverse(Polynomial<T> A) {
-        return null;
+        // TODO: convert to a correct answer
+        ArrayList<T> coefficients = new ArrayList<>(A.getCoefficients());
+        for(int i=0;i<coefficients.size();i++){
+            coefficients.set(i, field.multiplicativeInverse(coefficients.get(i)));
+        }
+        return new Polynomial<>(field, A.variable, coefficients);
     }
 
     @Override
@@ -44,8 +49,17 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
     }
 
     @Override
-    public Polynomial<T> additiveInverse(Polynomial<T> A) {
+    public Polynomial<T> div(Polynomial<T> A, Polynomial<T> B) {
         return null;
+    }
+
+    @Override
+    public Polynomial<T> additiveInverse(Polynomial<T> A) {
+        ArrayList<T> coefficients = new ArrayList<>(A.getCoefficients());
+        for(int i=0;i<coefficients.size();i++){
+            coefficients.set(i, field.additiveInverse(coefficients.get(i)));
+        }
+        return new Polynomial<T>(field, A.variable, coefficients);
     }
 
     @Override
@@ -72,4 +86,5 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
     public ArrayList<Polynomial<T>> getSet() {
         return null;
     }
+
 }
