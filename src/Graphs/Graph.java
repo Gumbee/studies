@@ -367,32 +367,19 @@ public class Graph<T> {
 
         boolean[] visited = new boolean[vertices.size()];
 
-        // TODO: change to heap (fibonacci heap?)
-        // vertices that are yet to be processed and haven't finalized their shortest distance yet
-//        LinkedList<Vertex<T>> toProcess = new LinkedList<>();
-//        toProcess.add(entry);
-
-        // TODO: look into how the values update in the heap
         QuickAccessHeapTree<Vertex<T>> toProcess = new QuickAccessHeapTree<>((a, b) -> a.placeholder-b.placeholder<0?-1:a.placeholder-b.placeholder>0?1:0);
         toProcess.add(entry);
 
         while (!toProcess.isEmpty()){
-            System.out.println("================================");
-            toProcess.printTree();
             // pops the smallest element
             Vertex<T> vertex = toProcess.popMin();
-            System.out.println();
-            toProcess.printTree();
 
             // mark the current vertex as visited
             visited[vertex.index] = true;
 
-            System.out.println("Dijkstra visited " + vertex.getItem().toString());
-
             if(vertex.equals(goal)){
                 //return pathToGoal;
             }
-
 
             for(Edge<T> e: vertex.getOutgoingEdges()){
                 Vertex<T> w = e.getEnd();
@@ -408,10 +395,6 @@ public class Graph<T> {
                     w.placeholderInitialized = true;
                 }
             }
-
-            System.out.println();
-            toProcess.printTree();
-
 
         }
 

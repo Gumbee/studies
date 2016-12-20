@@ -74,13 +74,14 @@ public class Main {
 //
 //        tree.printTree();
 
-        ZModGroup modAdd = new ZModGroup(7, ZModType.additive);
-        ZModGroup modMult = new ZModGroup(7, ZModType.multiplicative);
+        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
+        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
 
         GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
 
-        PolynomialField<Integer> polynomialField = new PolynomialField<>(GF);
-        PolynomialField<Polynomial<Integer>> polyPolynomialField = new PolynomialField<>(polynomialField);
+        Polynomial<Integer> modulus = new Polynomial<>(GF, 1,1,0,1,1,0,0,0,1);
+
+        PolynomialField<Integer> polynomialField = new PolynomialField<>(GF, modulus);
 
         Polynomial<Integer> a = new Polynomial<>(GF, 1,2,3,4,5);
         Polynomial<Integer> b = new Polynomial<>(GF, 3,4,3);
@@ -88,14 +89,27 @@ public class Main {
         Polynomial<Integer> d = new Polynomial<>(GF, 1,1,1);
         Polynomial<Integer> e = new Polynomial<>(GF, 0,0,0,3,3);
 
-        Polynomial<Polynomial<Integer>> f = new Polynomial<>(polynomialField,"y", a,b,c);
-        Polynomial<Polynomial<Integer>> g = new Polynomial<>(polynomialField,"y", a,c);
-        Polynomial<Polynomial<Integer>> i = new Polynomial<>(polynomialField,"y", b,a,b);
-        Polynomial<Polynomial<Integer>> j = new Polynomial<>(polynomialField,"y", c,e,d);
+        modulus.print();
 
-        Polynomial<Polynomial<Integer>> inv = polyPolynomialField.additiveInverse(g);
+        Polynomial<Integer> f = new Polynomial<>(GF, 4,1);
 
-        e.div(a);
+        for(Polynomial<Integer> p:polynomialField.getSet()) {
+            if(p.equals(polynomialField.additiveIdentity()) || p.deg() < 2){
+                continue;
+            }
+            Polynomial<Integer> o = p;
+            Polynomial<Integer> t = o;
+
+            int order = 1;
+            System.out.println("Polynomial is: " + p.toString());
+
+            while (!t.equals(polynomialField.multiplicativeIdentity())) {
+                t = polynomialField.mult(t, o);
+                order++;
+            }
+
+            System.out.println("Order is: " + order);
+        }
 
     }
 }

@@ -123,21 +123,45 @@ public class Polynomial<T> {
         return new Polynomial<>(field, variable, result);
     }
 
-
     /**
-     * divides this polynomial with the polynomial B and returns the result (without the remainder). division is
-     * euclidean division
+     * divides this polynomial with the polynomial B and returns the result (quotient without the remainder).
+     * division is euclidean division
      * @return the quotient
      */
     public Polynomial<T> div(Polynomial<T> B){
+        return divArray(B).get(0);
+    }
+
+    /**
+     * divides this polynomial with the polynomial B and returns the remainder (without the quotient).
+     * division is euclidean division
+     * @return the remainder
+     */
+    public Polynomial<T> divR(Polynomial<T> B){
+        return divArray(B).get(1);
+    }
+
+    /**
+     * returns the result of this polynomial modulo the polynomial M
+     * @param M the modulus
+     */
+    public Polynomial<T> mod(Polynomial<T> M){
+        return divR(M);
+    }
+
+    /**
+     * divides this polynomial by the polynomial B and returns an array containing the quotient at index 0 and
+     * the remainder at index 1
+     */
+    private ArrayList<Polynomial<T>> divArray(Polynomial<T> B){
         // check if M is defined over the same field as this polynomial
         checkField(B);
 
         Polynomial<T> quotient = new Polynomial<>(field, variable, field.additiveIdentity());
         Polynomial<T> remainder = this;
-        T leadingCoefficientB = B.getCoefficients().get(B.getCoefficients().size()-1);
 
         int degreeB  = B.deg();
+        T leadingCoefficientB = B.getCoefficients().get(B.getCoefficients().size()-1);
 
         while (remainder.deg() >= degreeB){
             T leading = field.div(remainder.getCoefficients().get(remainder.coefficients.size()-1), leadingCoefficientB);
@@ -155,13 +179,12 @@ public class Polynomial<T> {
             remainder =  remainder.sub(leadingPolynomial.mult(B));
         }
 
-        System.out.println("RESULT:\n" + toString() + " : " + B.toString() + " = " + quotient.toString() + " with remainder: " + remainder.toString());
-        System.out.print("TEST:" + (quotient.mult(B).add(remainder).equals(this)?" passed ✓":" failed ✗"));
-        quotient.mult(B).add(remainder).print();
+        ArrayList<Polynomial<T>> result = new ArrayList<>();
+        result.add(quotient);
+        result.add(remainder);
 
-        return null;
+        return result;
     }
-
 
 
     /**
@@ -270,6 +293,17 @@ public class Polynomial<T> {
     }
 
     private static String superscript(String str) {
+        str = str.replace("^20", "²⁰");
+        str = str.replace("^19", "¹⁹");
+        str = str.replace("^18", "¹⁸");
+        str = str.replace("^17", "¹⁷");
+        str = str.replace("^16", "¹⁶");
+        str = str.replace("^15", "¹⁵");
+        str = str.replace("^14", "¹⁴");
+        str = str.replace("^13", "¹³");
+        str = str.replace("^12", "¹²");
+        str = str.replace("^11", "¹¹");
+        str = str.replace("^10", "¹⁰");
         str = str.replace("^0", "⁰");
         str = str.replace("^1", "¹");
         str = str.replace("^2", "²");

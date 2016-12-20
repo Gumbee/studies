@@ -44,6 +44,9 @@ public class QuickAccessHeapTree<T> extends HeapTree<T> {
         super.add(item);
     }
 
+    /**
+     * swaps the nodes at index i and j and updates their index reference in the hash-map
+     */
     @Override
     protected void swap(int i, int j) {
         T a = heap.get(i).getItem();
