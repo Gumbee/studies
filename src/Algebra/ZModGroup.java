@@ -59,7 +59,7 @@ public class ZModGroup extends ZModMonoid implements Group<Integer> {
 
 
     /*==========================================
-     * Extended Euclidian Algorithm
+     * Extended Euclidean Algorithm
      ===========================================*/
 
     private class GCDTupel {

@@ -93,23 +93,5 @@ public class Main {
 
         Polynomial<Integer> f = new Polynomial<>(GF, 4,1);
 
-        for(Polynomial<Integer> p:polynomialField.getSet()) {
-            if(p.equals(polynomialField.additiveIdentity()) || p.deg() < 2){
-                continue;
-            }
-            Polynomial<Integer> o = p;
-            Polynomial<Integer> t = o;
-
-            int order = 1;
-            System.out.println("Polynomial is: " + p.toString());
-
-            while (!t.equals(polynomialField.multiplicativeIdentity())) {
-                t = polynomialField.mult(t, o);
-                order++;
-            }
-
-            System.out.println("Order is: " + order);
-        }
-
     }
 }
