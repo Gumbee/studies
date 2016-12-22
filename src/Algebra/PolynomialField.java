@@ -138,7 +138,7 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
     /**
      * uses the extended euclidean algorithm to find u and v such that u*a + v*b = gcd(a,b)
      */
-    private GCDTupel gcd(Polynomial<T> a, Polynomial<T> b){
+    public GCDTupel gcd(Polynomial<T> a, Polynomial<T> b){
         if(b.deg() > a.deg()){
             Polynomial<T> tmp = b;
             b = a;
@@ -175,6 +175,45 @@ public class PolynomialField<T> implements Field<Polynomial<T>> {
         // sub(mult(u1,a), mult(v1, b)).print();
 
         return new GCDTupel(u1, v1, s1);
+    }
+
+    /**
+     * uses the extended euclidean algorithm to find u and v such that u*a + v*b = gcd(a,b)
+     */
+    public Polynomial<T> gcdV(Polynomial<T> a, Polynomial<T> b){
+        if(b.deg() > a.deg()){
+            Polynomial<T> tmp = b;
+            b = a;
+            a = tmp;
+        }
+
+        Polynomial<T> s1 = a;
+        Polynomial<T> s2 = b;
+
+        // will satisfy the equation u*a-v*b = gcd(a,b)
+        Polynomial<T> u1 = multiplicativeIdentity;
+        Polynomial<T> u2 = additiveIdentity;
+        Polynomial<T> v1 = additiveIdentity;
+        Polynomial<T> v2 = multiplicativeIdentity;
+
+        while (s2.deg() > 0){
+            Polynomial<T> q = s1.div(s2);
+            // remainder
+            Polynomial<T> r = s1.divR(s2);
+            s1 = s2;
+            s2 = r;
+
+            Polynomial<T> tmp = u2;
+            u2 = u1.sub(q.mult(u2));
+            u1 = tmp;
+
+            tmp = v2;
+            v2 = v1.sub(q.mult(v2));
+            v1 = tmp;
+
+        }
+
+        return s1;
     }
 
 }

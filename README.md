@@ -65,5 +65,5 @@ Graph<String> graph = new Graph<>();
 | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | O(\|V\|+\|E\|)   | topoSort | Sorts the graph topologically    |
 | O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | DFS | Performs a depth-first-search from vertex A |
 | O(1)      | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | BFS | Performs a breadth-first-search from vertex A |
-| O(\|V\|*\|V\|) | O(\|V\|*\|V\|) | O(\|V\|*\|V\|) | Dijkstra | Searches for the shortest path starting from A |
+| O(\|V\|*log\|V\|) | O(\|V\|*log\|V\|) | O(\|V\|*log\|V\|) | Dijkstra | Searches for the shortest path starting from A |
 | O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | Bellman-Ford | Searches for the shortest path starting from A |

@@ -71,7 +71,7 @@ public class Main {
 //        tree.add(11);
 //        tree.add(7);
 //        tree.add(2);
-//
+//  
 //        tree.printTree();
 
         ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
@@ -79,19 +79,9 @@ public class Main {
 
         GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
 
-        Polynomial<Integer> modulus = new Polynomial<>(GF, 1,1,0,1,1,0,0,0,1);
+        PolynomialSuggester<Integer> ps = new PolynomialSuggester<>(GF);
 
-        PolynomialField<Integer> polynomialField = new PolynomialField<>(GF, modulus);
-
-        Polynomial<Integer> a = new Polynomial<>(GF, 1,2,3,4,5);
-        Polynomial<Integer> b = new Polynomial<>(GF, 3,4,3);
-        Polynomial<Integer> c = new Polynomial<>(GF, 1,5,5);
-        Polynomial<Integer> d = new Polynomial<>(GF, 1,1,1);
-        Polynomial<Integer> e = new Polynomial<>(GF, 0,0,0,3,3);
-
-        modulus.print();
-
-        Polynomial<Integer> f = new Polynomial<>(GF, 4,1);
+        System.out.println("Irreducible polynomial: " + ps.getIrreduciblePolynomial(8).toString());
 
     }
 }
