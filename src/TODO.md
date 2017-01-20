@@ -1,6 +1,6 @@
 ## Trees
 
-- [ ] Heap Tree
+- [X] Heap Tree
 - [ ] Heap sort
 - [ ] Delete functionality for all trees
 

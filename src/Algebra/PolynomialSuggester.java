@@ -201,7 +201,7 @@ public class PolynomialSuggester<T> {
      * a simple gcd calculator for integers
      * @return gcd of a and b
      */
-    public int simpleGCD(int a, int b){
+    private int simpleGCD(int a, int b){
         if(b > a){
             int tmp = b;
             b = a;
@@ -219,7 +219,7 @@ public class PolynomialSuggester<T> {
     /**
      * returns a random polynomial of a certain degree
      */
-    public Polynomial<T> getRandomPolynomial(int m) {
+    private Polynomial<T> getRandomPolynomial(int m) {
         ArrayList<T> coefficients = new ArrayList<>();
         // fill first m coefficients with zero elements
         for(int j=0;j<m;j++){

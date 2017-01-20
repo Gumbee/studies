@@ -1,11 +1,5 @@
 import Algebra.*;
-import Graphs.Graph;
-import Trees.AVLTree;
-import Trees.BinaryTree;
-import Trees.HeapTree;
-
-import java.util.ArrayList;
-import java.util.Comparator;
+import Util.Sorter;
 
 /**
  * Created by mugeebhassan on 25/11/16.
@@ -73,15 +67,27 @@ public class Main {
 //        tree.add(2);
 //  
 //        tree.printTree();
+//
+//        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
+//        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
+//
+//        GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
+//
+//        PolynomialSuggester<Integer> ps = new PolynomialSuggester<>(GF);
+//
+//        System.out.println("Irreducible polynomial: " + ps.getRandomIrreduciblePolynomial(8).toString());
+//
+//        PolynomialField<Integer> polynomialField = new PolynomialField<>(GF, new Polynomial<Integer>(GF, 1,0,1,0,1));
 
-        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
-        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
+//        polynomialField.mult()
 
-        GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
+        Sorter<Integer> sorter = new Sorter<>();
 
-        PolynomialSuggester<Integer> ps = new PolynomialSuggester<>(GF);
+        Integer[] sorted = sorter.heapSort(new Integer[]{1,1,3,1,10,4,5,1,6,3,1,7,5});
 
-        System.out.println("Irreducible polynomial: " + ps.getIrreduciblePolynomial(8).toString());
+        for(int i:sorted){
+            System.out.print(i + " ");
+        }
 
     }
 }
