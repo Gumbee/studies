@@ -19,6 +19,13 @@
 
 - [ ] Strassen's Matrix Multiplication
 
+## Sorting
+
+- Merge sort
+- Quick sort (no extra space)
+- Insertion sort
+- Selection sort
+
 ## Algebra
 
 - [ ] Polynomials (extends Ring)

@@ -1,6 +1,8 @@
 import Algebra.*;
 import Util.Sorter;
 
+import java.util.ArrayList;
+
 /**
  * Created by mugeebhassan on 25/11/16.
  */
@@ -69,9 +71,11 @@ public class Main {
 //        tree.printTree();
 //
 //        ZModGroup modAdd = new ZModGroup(2, ZModType.additive);
-//        ZModGroup modMult = new ZModGroup(2, ZModType.multiplicative);
+//        ZModGroup modMult = new ZModGroup(11, ZModType.multiplicative);
 //
-//        GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
+//        System.out.println("Mult is: " + modMult.add(2,modMult.add(2,modMult.add(2,modMult.add(2,modMult.add(2,2))))));
+////
+////        GaloisField<Integer> GF = new GaloisField<>(modAdd, modMult);
 //
 //        PolynomialSuggester<Integer> ps = new PolynomialSuggester<>(GF);
 //
@@ -83,7 +87,16 @@ public class Main {
 
         Sorter<Integer> sorter = new Sorter<>();
 
-        Integer[] sorted = sorter.heapSort(new Integer[]{1,1,3,1,10,4,5,1,6,3,1,7,5});
+        ArrayList<Integer> unsorted = new ArrayList<>();
+
+        unsorted.add(3);
+        unsorted.add(1);
+        unsorted.add(3);
+        unsorted.add(6);
+        unsorted.add(4);
+        unsorted.add(9);
+
+        ArrayList<Integer> sorted = sorter.heapSort(unsorted);
 
         for(int i:sorted){
             System.out.print(i + " ");
