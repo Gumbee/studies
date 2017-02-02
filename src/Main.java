@@ -96,7 +96,7 @@ public class Main {
         unsorted.add(4);
         unsorted.add(9);
 
-        ArrayList<Integer> sorted = sorter.heapSort(unsorted);
+        ArrayList<Integer> sorted = sorter.heapSort(unsorted, (a,b)->b-a);
 
         for(int i:sorted){
             System.out.print(i + " ");
