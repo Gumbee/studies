@@ -2,6 +2,8 @@ package Graphs;
 
 import Trees.HeapTree;
 import Trees.QuickAccessHeapTree;
+import Util.DisjointSet;
+import Util.Sorter;
 
 import java.util.*;
 
@@ -104,6 +106,8 @@ public class Graph<T> {
             end.addEdge(e);
         }
     }
+
+    //TODO: add "remove edge"
 
     /**
      * A function that checks whether the vertex B is connected to the vertex A with an edge
@@ -339,6 +343,42 @@ public class Graph<T> {
         }
 
         return sortedList;
+    }
+
+    /**
+     * finds a minimum spanning tree and returns it. The MST is determined using Kruskal's algorithm.
+     * @return ArrayList containing all the Edges that are part of the minimum spanning tree
+     */
+    public ArrayList<Edge<T>> MST(){
+
+        DisjointSet<Vertex<T>> disjointVertices = new DisjointSet<>();
+
+        //add each vertex to the set
+        for(Vertex<T> v : vertices){
+            disjointVertices.add(v);
+        }
+
+        Sorter<Edge<T>> sorter = new Sorter<>();
+
+        //sort the edges in ascending order by their weight
+        edges.sort((a, b) -> a.getWeight() > b.getWeight() ? 1 : b.getWeight() > a.getWeight() ? -1 : 0);
+
+        ArrayList<Edge<T>> mst = new ArrayList<>();
+
+        for(Edge<T> e: edges){
+            //get the representative of the set to which the starting node belongs to
+            Vertex<T> setA = disjointVertices.findSet(e.getStart());
+            //get the representative of the set to which the ending node belongs to
+            Vertex<T> setB = disjointVertices.findSet(e.getEnd());
+
+            //if this edge connects two still unconnected vertices then we add it to the mst
+            if(!setA.equals(setB)){
+                disjointVertices.union(e.getStart(), e.getEnd());
+                mst.add(e);
+            }
+        }
+
+        return mst;
     }
 
     public ArrayList<Edge<T>> dijsktra(T entry, T goal) {

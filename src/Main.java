@@ -1,4 +1,6 @@
 import Algebra.*;
+import Graphs.Edge;
+import Graphs.Graph;
 import Util.DisjointSet;
 import Util.SetNode;
 import Util.Sorter;
@@ -12,32 +14,31 @@ public class Main {
 
     public static void main(String[] args){
 
-        DisjointSet<Integer> disjointSet = new DisjointSet<>();
+        Graph<String> graph = new Graph<>(false);
 
-        disjointSet.add(1);
-        disjointSet.add(2);
-        disjointSet.add(3);
-        disjointSet.add(4);
-        disjointSet.add(5);
-        disjointSet.add(6);
-        disjointSet.add(7);
-        disjointSet.add(8);
-        disjointSet.add(9);
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+        graph.addVertex("E");
+        graph.addVertex("F");
 
-        disjointSet.union(1,2);
-        disjointSet.union(2,3);
-        disjointSet.union(3,4);
-        disjointSet.union(4,5);
-        disjointSet.union(6,7);
-        disjointSet.union(8,9);
-        disjointSet.union(7,9);
+        graph.addEdge("A", "B", 5);
+        graph.addEdge("A", "E", 6);
+        graph.addEdge("A", "F", 1);
+        graph.addEdge("E", "F", 5);
+        graph.addEdge("F", "B", 5);
+        graph.addEdge("B", "C", 2);
+        graph.addEdge("F", "C", 4);
+        graph.addEdge("D", "C", 6);
+        graph.addEdge("D", "F", 6);
+        graph.addEdge("D", "E", 3);
 
+        ArrayList<Edge<String>> mst = graph.MST();
 
-        for(SetNode<Integer> e:disjointSet){
-            System.out.println("Item " + e.item + " belongs to the set " + e.findSet());
+        for(Edge<String> e : mst){
+            System.out.println("Edge ("  + e.getStart().toString() + ", " + e.getEnd().toString() + ") with weight " + e.getWeight());
         }
-
-
 
     }
 }

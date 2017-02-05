@@ -74,6 +74,10 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
     public T findSet(T item){
         SetNode<T> start = findNode(item);
 
+        if(start == null){
+            return null;
+        }
+
         // update the reference so that the next query is faster
         start.parent = findSet(start);
 
