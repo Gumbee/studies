@@ -1,6 +1,7 @@
 import Algebra.*;
 import Graphs.Edge;
 import Graphs.Graph;
+import Trees.AVLTree;
 import Util.DisjointSet;
 import Util.SetNode;
 import Util.Sorter;
@@ -14,30 +15,26 @@ public class Main {
 
     public static void main(String[] args){
 
-        Graph<String> graph = new Graph<>(false);
+        Graph<Integer> graph = new Graph<>(false);
 
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-        graph.addVertex("E");
-        graph.addVertex("F");
+        graph.addVertex(1);
+        graph.addVertex(2);
+        graph.addVertex(3);
+        graph.addVertex(4);
+        graph.addVertex(5);
 
-        graph.addEdge("A", "B", 5);
-        graph.addEdge("A", "E", 6);
-        graph.addEdge("A", "F", 1);
-        graph.addEdge("E", "F", 5);
-        graph.addEdge("F", "B", 5);
-        graph.addEdge("B", "C", 2);
-        graph.addEdge("F", "C", 4);
-        graph.addEdge("D", "C", 6);
-        graph.addEdge("D", "F", 6);
-        graph.addEdge("D", "E", 3);
+        graph.addEdge(1,2,3);
+        graph.addEdge(2,3,10);
+        graph.addEdge(1,3,5);
+        graph.addEdge(4,5,1);
+        graph.addEdge(5,3,5);
+        graph.addEdge(4,2,3);
+        graph.addEdge(4,3,7);
 
-        ArrayList<Edge<String>> mst = graph.MST();
+        ArrayList<Edge<Integer>> mst = graph.MST();
 
-        for(Edge<String> e : mst){
-            System.out.println("Edge ("  + e.getStart().toString() + ", " + e.getEnd().toString() + ") with weight " + e.getWeight());
+        for(Edge<Integer> e : mst){
+            System.out.println("Edge (" + e.getStart() + ", " + e.getEnd() + ") with weight " + e.getWeight());
         }
 
     }

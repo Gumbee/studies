@@ -44,16 +44,19 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
         SetNode<T> rootA = nodeA.parent;
         SetNode<T> rootB = nodeB.parent;
 
+        // get the set representative of item a
         while (!rootA.equals(nodeA)){
             nodeA = rootA;
             rootA = nodeA.parent;
         }
 
+        // get the set representative of item b
         while (!rootB.equals(nodeB)){
             nodeB = rootB;
             rootB = nodeB.parent;
         }
 
+        // make the set representative with the higher rank the new set representative
         if(rootA.rank > rootB.rank){
             rootB.parent = rootA;
             rootB.rank = 0;
@@ -63,6 +66,7 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
         }else {
             rootB.parent = rootA;
             rootB.rank = 0;
+            // if both set representatives have the same rank, increase the new representative's rank by one
             rootA.rank++;
         }
     }
