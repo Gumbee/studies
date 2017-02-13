@@ -48,6 +48,19 @@ public class BinaryTree<T> {
     }
 
     /**
+     * removes a node from the tree
+     */
+    public void remove(T item){
+        Node<T> node = find(item);
+
+        if(node == null){
+            return;
+        }
+
+        // TODO: finish node removal
+    }
+
+    /**
      * inserts a node into the tree and automatically places it at the right position
      * @param currentNode the current node to which the new node is compared to
      * @param node a node that is to be inserted into the tree
@@ -93,6 +106,31 @@ public class BinaryTree<T> {
      */
     public final void printTree() {
         BinaryTree.printBinaryTree(getLevels());
+    }
+
+    /*==========================================
+     * Private Methods
+     ===========================================*/
+
+    /**
+     * finds an item's node and returns it.
+     * @return the item's corresponding node
+     */
+    private Node<T> find(T item){
+        Node<T> itemNode = new Node<>(item, comparator);
+        Node<T> current = root;
+
+        // compare the item to the current node and move to the right child if the item is
+        // bigger and to the left child if it's smaller
+        while (current != null && !current.getItem().equals(item)){
+            if(current.compareTo(itemNode) < 0){
+                current = current.getRightChild();
+            }else {
+                current = current.getLeftChild();
+            }
+        }
+
+        return current;
     }
 
     /**

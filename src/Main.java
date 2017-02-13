@@ -2,6 +2,7 @@ import Algebra.*;
 import Graphs.Edge;
 import Graphs.Graph;
 import Trees.AVLTree;
+import Trees.BinaryTree;
 import Util.DisjointSet;
 import Util.SetNode;
 import Util.Sorter;
@@ -15,27 +16,18 @@ public class Main {
 
     public static void main(String[] args){
 
-        Graph<Integer> graph = new Graph<>(false);
+        BinaryTree<Integer> tree = new BinaryTree<>();
 
-        graph.addVertex(1);
-        graph.addVertex(2);
-        graph.addVertex(3);
-        graph.addVertex(4);
-        graph.addVertex(5);
+        tree.add(10);
+        tree.add(1);
+        tree.add(5);
+        tree.add(15);
+        tree.add(3);
+        tree.add(6);
+        tree.add(76);
+        tree.add(16);
 
-        graph.addEdge(1,2,3);
-        graph.addEdge(2,3,10);
-        graph.addEdge(1,3,5);
-        graph.addEdge(4,5,1);
-        graph.addEdge(5,3,5);
-        graph.addEdge(4,2,3);
-        graph.addEdge(4,3,7);
-
-        ArrayList<Edge<Integer>> mst = graph.MST();
-
-        for(Edge<Integer> e : mst){
-            System.out.println("Edge (" + e.getStart() + ", " + e.getEnd() + ") with weight " + e.getWeight());
-        }
+        tree.printTree();
 
     }
 }

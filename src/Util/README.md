@@ -4,10 +4,10 @@
 
 ### Usage
 
-#### Create a empty disjoint set
+#### Create an empty disjoint set
 
 ```Java
-// create a empty disjoint set
+// create an empty disjoint set
 DisjointSet<String> territories = new DisjointSet<>();
 ```
 #### Add sets to the disjoint set

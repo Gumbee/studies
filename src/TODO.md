@@ -1,32 +1,32 @@
 ## Trees
 
 - [X] Heap Tree
-- [ ] Heap sort
 - [ ] Delete functionality for all trees
 
 ## Graphs
 
-- [ ] Union Find
 - [ ] A-Star
 - [ ] Dijkstra (balanced with AVL) (Fibonacci Heap)
 - [ ] Strongly Connected Graph
 - [ ] 2-Sat Problem
 - [ ] Euler Cycles
-- [ ] MST
+- [X] MST
 - [ ] store vertices in a tree/hashmap so that performance is improved (maybe implement my own hashmap?)
 
 ## Utils
 
+- [X] Union Find
 - [ ] Strassen's Matrix Multiplication
 
 ## Sorting
 
-- Merge sort
-- Quick sort (no extra space)
-- Insertion sort
-- Selection sort
+- [X] Heap sort
+- [ ] Merge sort
+- [ ] Quick sort (no extra space)
+- [ ] Insertion sort
+- [ ] Selection sort
 
 ## Algebra
 
-- [ ] Polynomials (extends Ring)
+- [X] Polynomials (extends Ring)
 - [ ] Calculation parser
