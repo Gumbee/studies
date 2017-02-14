@@ -57,7 +57,34 @@ public class BinaryTree<T> {
             return;
         }
 
-        // TODO: finish node removal
+        // if the node is a leaf, simply remove it
+        if(node.getRightChild() == null && node.getLeftChild() == null){
+            // if the node is a leaf and the root, simply set root to null
+            if(root.equals(node)){
+                root = null;
+            }else{
+                node.remove();
+            }
+        }else if(node.getRightChild() == null){
+            // if the node only has one child (a left child), replace the node's parents connection to the
+            // node with a connection to the node's child
+            node.replace(node.getLeftChild());
+        }else if(node.getLeftChild() == null){
+            // if the node only has one child (a right child), replace the node's parents connection to the
+            // node with a connection to the node's child
+            node.replace(node.getRightChild());
+        }else{
+            Node<T> replacement = node.getRightChild();
+
+            while (replacement.getLeftChild() != null){
+                replacement = replacement.getLeftChild();
+            }
+
+            // swap the items
+            node.swap(replacement);
+            // delete the replacement node by replacing it with its right child
+            replacement.replace(replacement.getRightChild());
+        }
     }
 
     /**

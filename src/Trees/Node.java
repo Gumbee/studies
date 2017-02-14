@@ -34,6 +34,34 @@ public class Node<T> {
         return item;
     }
 
+    /**
+     * Sets the parent's right child or left child to null (depending on which child this node is)
+     * This node's children are therefore also detached from this node's parent since the link between
+     * the parent and this node is simply removed.
+     */
+    public void remove(){
+        replace(null);
+    }
+
+    /**
+     * replaces this node's position in the tree with another node.
+     */
+    public void replace(Node<T> node){
+        if (getParent().getRightChild() != null && getParent().getRightChild().equals(this)) {
+            getParent().setRightChild(node);
+        } else {
+            getParent().setLeftChild(node);
+        }
+    }
+
+    /**
+     * swaps this node's item with a replacement node's item
+     * @param node
+     */
+    public void swap(Node<T> replacement){
+        this.item = replacement.item;
+    }
+
     /*==========================================
      * Getter Methods
      ===========================================*/

@@ -20,12 +20,17 @@ public class Main {
 
         tree.add(10);
         tree.add(1);
+        tree.add(0);
         tree.add(5);
         tree.add(15);
         tree.add(3);
         tree.add(6);
         tree.add(76);
         tree.add(16);
+
+        tree.printTree();
+
+        tree.remove(10);
 
         tree.printTree();
 
