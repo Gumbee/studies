@@ -23,6 +23,11 @@ public class AVLTree<T> extends BinaryTree<T> {
         super(root, comparator);
     }
 
+    @Override
+    public void remove(T item) {
+        // TODO: add AVL node removal
+    }
+
     /**
      * inserts a node into the tree and balances out the tree if necessary
      * @param currentNode the current node to which the new node is compared to

@@ -16,23 +16,22 @@ public class Main {
 
     public static void main(String[] args){
 
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        ArrayList<Integer> unsorted = new ArrayList<>();
 
-        tree.add(10);
-        tree.add(1);
-        tree.add(0);
-        tree.add(5);
-        tree.add(15);
-        tree.add(3);
-        tree.add(6);
-        tree.add(76);
-        tree.add(16);
+        unsorted.add(3);
+        unsorted.add(5);
+        unsorted.add(1);
+        unsorted.add(7);
+        unsorted.add(2);
+        unsorted.add(9);
+        unsorted.add(10);
+        unsorted.add(0);
 
-        tree.printTree();
+        System.out.println(unsorted);
 
-        tree.remove(10);
+        Sorter<Integer> sorter = new Sorter<>();
 
-        tree.printTree();
+        System.out.println(sorter.mergeSort(unsorted));
 
     }
 }

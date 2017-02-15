@@ -21,7 +21,7 @@
 ## Sorting
 
 - [X] Heap sort
-- [ ] Merge sort
+- [X] Merge sort
 - [ ] Quick sort (no extra space)
 - [ ] Insertion sort
 - [ ] Selection sort
