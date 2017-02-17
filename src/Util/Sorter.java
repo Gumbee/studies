@@ -2,7 +2,6 @@ package Util;
 
 import Trees.HeapTree;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -72,7 +71,7 @@ public class Sorter<T> {
     }
 
     /**
-     * sorts an ArrayList of items with merge sort
+     * sorts an ArrayList with merge sort
      * @param data the unsorted data
      * @param comparator optional comparator to change the way two items are compared
      * @return the initial data in sorted order

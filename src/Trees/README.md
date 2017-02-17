@@ -16,6 +16,13 @@ tree.add(31);
 tree.printTree();
 ```
 
+#### Analysis:
+| Best Case | Worst Case | Operation   | Description                          |
+|-----------|------------|-------------|--------------------------------------|
+| *O(1)*      | *O(n)* | Insert vertex | Inserts a vertex into the tree         |
+| *O(1)*      | *O(n)* | Delete vertex | Deletes a vertex and "repairs" the gap |
+| *O(1)*      | *O(n)* | Find a vertex | Searches for a vertex and outputs it   |
+
 ## Binary Heap Tree
 
 ### Usage
@@ -35,6 +42,14 @@ heap.add(4);
 heap.add(2);
 heap.add(6);
 ```
+
+#### Analysis
+| Best Case | Worst Case | Operation   | Description                                          |
+|-----------|------------|-------------|------------------------------------------------------|
+| *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex and restores heap property |
+| *O(1)*      | *O(n)*   | Find a vertex | Searches for a vertex and outputs it                   |
+
+
 Or with a comparator:
 
 ```Java
@@ -63,3 +78,10 @@ tree.add(32);
 // print out the tree (formatted ASCII ART)
 tree.printTree();
 ```
+
+##### Analysis
+| Best Case | Worst Case | Operation   | Description                                          |
+|-----------|------------|-------------|------------------------------------------------------|
+| *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex into the tree and rebalances the tree |
+| *O(1)*      | *O(log n)* | Find a vertex | Searches for a vertex and outputs it                   |
+

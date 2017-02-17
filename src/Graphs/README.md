@@ -106,3 +106,19 @@ for(Vertex<Reaction> reaction: minEntropy){
     // do something with the shortest path...
 }
 ```
+
+# Analysis
+
+This analysis is based on the provided implementation.
+
+| Best Case | Worst Case   | Operation    | Description                                    |
+|-----------|--------------|--------------|------------------------------------------------|
+| O(1)      | O(1)         | Add vertex   | Adds a new vertex to the graph                 |
+| O(1)      | O(1)         | Add edge     | Adds a new edge to the graph                   |
+| O(1)      | O(\|E\|)     | isAdjacent   | Checks whether vertex B is reachable from vertex A|
+| O(1)      | O(\|E\|)     | getNeighbors | Finds all neighbors of a certain vertex        |
+| O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | topoSort | Sorts the graph topologically    |
+| O(1)      | O(\|V\|+\|E\|) | DFS | Performs a depth-first-search from vertex A |
+| O(1)      | O(\|V\|+\|E\|) | BFS | Performs a breadth-first-search from vertex A |
+| O(1) | O((\|E\|+\|V\|)*log\|V\|) | Dijkstra | Searches for the shortest path starting from A |
+| O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | Bellman-Ford | Searches for the shortest path starting from A |
