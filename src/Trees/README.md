@@ -78,7 +78,7 @@ tree.add(32);
 tree.printTree();
 ```
 
-#### Analysis
+### Analysis
 | Best Case | Worst Case | Operation   | Description                                          |
 |-----------|------------|-------------|------------------------------------------------------|
 | *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex into the tree and rebalances the tree |

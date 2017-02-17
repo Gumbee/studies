@@ -9,7 +9,7 @@ A collection of my studies done at the ETH Zurich. The whole repository is a wor
 
 1. Fork the project
 2. Use your favourite IDE to extend the project to your liking
-3. Use the documentation (each topic has its README.md) to use existing implementations
+3. Use the documentation to use existing implementations (each topic has its README.md)
 
 #### Documentation
 
