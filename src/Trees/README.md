@@ -43,13 +43,6 @@ heap.add(2);
 heap.add(6);
 ```
 
-#### Analysis
-| Best Case | Worst Case | Operation   | Description                                          |
-|-----------|------------|-------------|------------------------------------------------------|
-| *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex and restores heap property |
-| *O(1)*      | *O(n)*   | Find a vertex | Searches for a vertex and outputs it                   |
-
-
 Or with a comparator:
 
 ```Java
@@ -61,6 +54,12 @@ heap.add(barry);
 heap.add(tim);
 heap.add(thomas);
 ```
+
+### Analysis
+| Best Case | Worst Case | Operation   | Description                                          |
+|-----------|------------|-------------|------------------------------------------------------|
+| *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex and restores heap property |
+| *O(1)*      | *O(n)*   | Find a vertex | Searches for a vertex and outputs it                   |
 
 ## AVL-Tree
 
@@ -79,7 +78,7 @@ tree.add(32);
 tree.printTree();
 ```
 
-##### Analysis
+#### Analysis
 | Best Case | Worst Case | Operation   | Description                                          |
 |-----------|------------|-------------|------------------------------------------------------|
 | *O(1)*      | *O(log n)* | Insert vertex | Inserts a vertex into the tree and rebalances the tree |
