@@ -44,4 +44,9 @@ public class Edge<T> implements Comparable<Edge<T>> {
     public int compareTo(Edge<T> o) {
         return weight<o.weight?-1:weight>o.weight?1:0;
     }
+
+    @Override
+    public String toString() {
+        return "(" + start + ", " + end + ", " + weight + ")";
+    }
 }

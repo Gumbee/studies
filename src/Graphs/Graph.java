@@ -409,6 +409,7 @@ public class Graph<T> {
 
         QuickAccessHeapTree<Vertex<T>> toProcess = new QuickAccessHeapTree<>((a, b) -> a.placeholder-b.placeholder<0?-1:a.placeholder-b.placeholder>0?1:0);
         toProcess.add(entry);
+        entry.placeholderInitialized = true;
 
         while (!toProcess.isEmpty()){
             // pops the smallest element
@@ -418,7 +419,7 @@ public class Graph<T> {
             visited[vertex.index] = true;
 
             if(vertex.equals(goal)){
-                //return pathToGoal;
+                return getShortestPath(entry, goal);
             }
 
             for(Edge<T> e: vertex.getOutgoingEdges()){
@@ -496,7 +497,7 @@ public class Graph<T> {
 
         System.out.println("We reached the goal (" + goal.getItem().toString() + ") with a length of " + goal.placeholder);
 
-        return null;
+        return getShortestPath(entry, goal);
     }
 
 
@@ -546,6 +547,38 @@ public class Graph<T> {
             // assign a index number to every vertex
             n.index = index++;
         }
+    }
+
+    /**
+     * gets the shortest path from a start vertex to an end vertex. The path can only be found if the graph
+     * was already processed with a shortest path algorithm (e.g dijkstra, bellman-ford)
+     * @param start the vertex which was given as entry point for a shortest path algorithm
+     * @param end the vertex which was given as end point for a shortest path algorithm
+     * @return an ArrayList of Edges which form the shortest path from the entry point to the end point
+     */
+    private ArrayList<Edge<T>> getShortestPath(Vertex<T> start, Vertex<T> end){
+        Vertex<T> current = end;
+        ArrayList<Edge<T>> path = new ArrayList<>();
+
+        while(!current.equals(start)){
+            // get all incoming edges
+            for(Edge<T> edge : current.getIncomingEdges()){
+                // check which edge leads to the already calculated minimum for our current edge
+                if(edge.getStart().placeholder + edge.getWeight() == current.placeholder){
+                    // add the edge to our shortest path
+                    path.add(edge);
+                    // move to the start of the edge and repeat the process
+                    current = edge.getStart();
+                    break;
+                }
+            }
+
+        }
+
+        // reverse the path because we backtracked the path from the end vertex
+        Collections.reverse(path);
+
+        return path;
     }
 
 
