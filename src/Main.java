@@ -44,11 +44,16 @@ public class Main {
         graph.addEdge(3,4,9);
         graph.addEdge(5,4,10);
 
-        ArrayList<Edge<Integer>> path = graph.dijsktra(0, 4);
+        ArrayList<Edge<Integer>> path = graph.MST();
+
+        int weight = 0;
 
         for(Edge<Integer> e: path){
-            System.out.print(e.getStart() + " -> " + e.getEnd() + " | ");
+            System.out.println(e.getStart() + " -> " + e.getEnd());
+            weight += e.getWeight();
         }
+
+        System.out.println("Weight is: " + weight);
 
     }
 }

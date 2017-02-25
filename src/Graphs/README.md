@@ -120,5 +120,6 @@ This analysis is based on the provided implementation.
 | O(\|V\|+\|E\|) | O(\|V\|+\|E\|) | topoSort | Sorts the graph topologically    |
 | O(1)      | O(\|V\|+\|E\|) | DFS | Performs a depth-first-search from vertex A |
 | O(1)      | O(\|V\|+\|E\|) | BFS | Performs a breadth-first-search from vertex A |
+| O(\|E\|*log\|V\|) | O(\|E\|*log\|V\|) | MST | Returns a minimum spanning tree |
 | O(1) | O((\|E\|+\|V\|)*log\|V\|) | Dijkstra | Searches for the shortest path starting from A |
 | O(\|E\|*\|V\|) | O(\|E\|*\|V\|) | Bellman-Ford | Searches for the shortest path starting from A |
