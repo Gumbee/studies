@@ -4,11 +4,13 @@ import Graphs.Graph;
 import Trees.AVLTree;
 import Trees.BinaryTree;
 import Util.DisjointSet;
+import Util.HashMap;
 import Util.SetNode;
 import Util.Sorter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by mugeebhassan on 25/11/16.
@@ -44,7 +46,7 @@ public class Main {
         graph.addEdge(3,4,9);
         graph.addEdge(5,4,10);
 
-        ArrayList<Edge<Integer>> path = graph.MST();
+        ArrayList<Edge<Integer>> path = graph.kruskal();
 
         int weight = 0;
 
@@ -54,6 +56,23 @@ public class Main {
         }
 
         System.out.println("Weight is: " + weight);
+
+//        HashMap<String, Integer> map = new HashMap<>();
+//
+//        for(int i=0;i<1000;i++){
+//            String allowed = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//            Random random = new Random();
+//
+//            StringBuilder sb = new StringBuilder(10);
+//            for( int k = 0; k < 10; k++ ) {
+//                sb.append(allowed.charAt(random.nextInt(allowed.length())));
+//            }
+//
+//            map.put(sb.toString(), random.nextInt(100000));
+//        }
+//
+//        System.out.println(map.values);
+//        System.out.println(map.collisions);
 
     }
 }

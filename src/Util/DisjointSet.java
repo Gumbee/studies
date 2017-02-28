@@ -14,6 +14,14 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
         this.set = new ArrayList<SetNode<T>>();
     }
 
+    public DisjointSet(ArrayList<T> initArray) {
+        this.set = new ArrayList<SetNode<T>>();
+
+        for(T item : initArray){
+            add(item);
+        }
+    }
+
     /**
      * adds an item to the disjoint set
      * @param item the item that is to be added

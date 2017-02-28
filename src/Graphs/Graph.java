@@ -39,15 +39,11 @@ public class Graph<T> {
     public void addVertex(T item){
         Vertex n = new Vertex(item);
         vertices.add(n);
-        // number them so we don't have to later
-        assignIndexToVertices();
 
     }
 
     public void addVertex(Vertex<T> vertex){
         vertices.add(vertex);
-        // number them so we don't have to later
-        assignIndexToVertices();
     }
 
     /**
@@ -199,6 +195,9 @@ public class Graph<T> {
             throw new NullPointerException("No entry vertex found! Error in: graph.BFS");
         }
 
+        // assign a number to each vertex
+        assignIndexToVertices();
+
         Queue<Vertex<T>> queue = new LinkedList<>();
         queue.add(entry);
 
@@ -262,6 +261,9 @@ public class Graph<T> {
             throw new NullPointerException("No entry vertex found! Error in: graph.DFS");
         }
 
+        // assign a number to each vertex
+        assignIndexToVertices();
+
         Stack<Vertex<T>> stack = new Stack<>();
         stack.add(entry);
 
@@ -302,6 +304,8 @@ public class Graph<T> {
      * @return the ArrayList consisting of the topologically sorted vertices
      */
     public final ArrayList<Vertex<T>> topologicalSort(){
+        // assign a number to each vertex
+        assignIndexToVertices();
 
         // degree of incoming edges for each vertex. Everytime we pick the next vertex with degree = 0, we decrease
         // the degree of every neighbour by 1 and do the same for every vertex that reaches 0 after decrementing
@@ -349,14 +353,9 @@ public class Graph<T> {
      * finds a minimum spanning tree and returns it. The MST is determined using Kruskal's algorithm.
      * @return ArrayList containing all the Edges that are part of the minimum spanning tree
      */
-    public ArrayList<Edge<T>> MST(){
-
-        DisjointSet<Vertex<T>> disjointVertices = new DisjointSet<>();
-
-        //add each vertex to the set
-        for(Vertex<T> v : vertices){
-            disjointVertices.add(v);
-        }
+    public ArrayList<Edge<T>> kruskal(){
+        // create a new disjoint set with each vertex as its own partition
+        DisjointSet<Vertex<T>> disjointVertices = new DisjointSet<>(vertices);
 
         Sorter<Edge<T>> sorter = new Sorter<>();
 
@@ -399,6 +398,9 @@ public class Graph<T> {
         if(entry == null || goal == null){
             throw new NullPointerException("entry or goal vertex was not found! Error in: graph.dijkstra");
         }
+
+        // assign a number to each vertex
+        assignIndexToVertices();
 
         for(Vertex<T> v:vertices){
             // a false value here is equal to setting the vertexDistances-value to infinity
