@@ -13,6 +13,8 @@ import java.util.*;
 public class Graph<T> {
 
     private ArrayList<Vertex<T>> vertices;
+    // hash map for quick look up
+    private HashMap<T, Vertex<T>> verticesMap;
     private ArrayList<Edge<T>> edges;
 
     private boolean directed = true;
@@ -27,6 +29,7 @@ public class Graph<T> {
      */
     public Graph(boolean directed) {
         vertices = new ArrayList<>();
+        verticesMap = new HashMap<T, Vertex<T>>();
         edges = new ArrayList<>();
         this.directed = directed;
     }
@@ -37,13 +40,19 @@ public class Graph<T> {
      ===========================================*/
 
     public void addVertex(T item){
-        Vertex n = new Vertex(item);
-        vertices.add(n);
-
+        Vertex vertex = new Vertex(item);
+        vertices.add(vertex);
+        // add it to the hash map as well so we can search get the vertex corresponding to
+        // that item more quickly
+        verticesMap.put(item, vertex);
     }
 
     public void addVertex(Vertex<T> vertex){
         vertices.add(vertex);
+
+        // add it to the hash map as well so we can search get the vertex corresponding to
+        // that item more quickly
+        verticesMap.put(vertex.getItem(), vertex);
     }
 
     /**
@@ -525,13 +534,9 @@ public class Graph<T> {
      * given an item it returns the vertex that has that particular item as item
      */
     private Vertex<T> getVertex(T item){
-        for(Vertex<T> vertex : vertices){
-            if(vertex.getItem() == item){
-                return vertex;
-            }
-        }
+        Vertex<T> vertex = verticesMap.get(item);
 
-        return null;
+        return (vertex!=null)?vertex:null;
     }
 
     /*==========================================
