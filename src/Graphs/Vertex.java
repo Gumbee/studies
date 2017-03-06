@@ -15,6 +15,10 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
     // for the placeholder-value)
     public boolean placeholderInitialized;
 
+    // used for the aritculation points algorithm
+    public int low;
+    public boolean isArticulationPoint;
+
     private T item;
     private ArrayList<Edge<T>> incomingEdges;
     private ArrayList<Edge<T>> outgoingEdges;

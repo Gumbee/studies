@@ -1,6 +1,7 @@
 package Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -8,14 +9,16 @@ import java.util.Iterator;
  */
 public class DisjointSet<T> implements Iterable<SetNode<T>> {
 
-    private ArrayList<SetNode<T>> set;
+    private HashMap<T, SetNode<T>> set;
+    // how many disjoint partitions there are
+    private int partitions = 0;
 
     public DisjointSet(){
-        this.set = new ArrayList<SetNode<T>>();
+        this.set = new HashMap<T, SetNode<T>>();
     }
 
     public DisjointSet(ArrayList<T> initArray) {
-        this.set = new ArrayList<SetNode<T>>();
+        this.set = new HashMap<T, SetNode<T>>();
 
         for(T item : initArray){
             add(item);
@@ -64,6 +67,11 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
             rootB = nodeB.parent;
         }
 
+        if(!rootA.equals(rootB)){
+            // since we made a union, we have one less partition
+            partitions--;
+        }
+
         // make the set representative with the higher rank the new set representative
         if(rootA.rank > rootB.rank){
             rootB.parent = rootA;
@@ -97,6 +105,18 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
     }
 
     /**
+     * returns the number of partitions in the disjoint set
+     */
+    public int numPartitions(){
+        return partitions;
+    }
+
+
+    /*==========================================
+     * Private Methods
+     ===========================================*/
+
+    /**
      * finds out to which set a certain item belongs to and returns it
      * @return parent SetNode of the set to which the item belongs to
      */
@@ -112,12 +132,14 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
         return parent;
     }
 
+
     /**
      * create a new set that can be united with other sets
      */
     private void makeSet(T item){
         SetNode<T> node = new SetNode(item);
-        this.set.add(node);
+        this.set.put(item, node);
+        partitions++;
     }
 
     /**
@@ -126,14 +148,19 @@ public class DisjointSet<T> implements Iterable<SetNode<T>> {
      * @return node containing the item
      */
     private SetNode<T> findNode(T item){
-        for(SetNode<T> node : set){
-            if(node.item.equals(item)){
-                return node;
-            }
-        }
+//        for(SetNode<T> node : set){
+//            if(node.item.equals(item)){
+//                return node;
+//            }
+//        }
 
-        return null;
+        return set.get(item);
     }
+
+
+    /*==========================================
+     * Util Methods
+     ===========================================*/
 
     /**
      * make iterating through the set easier

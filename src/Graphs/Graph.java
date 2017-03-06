@@ -359,14 +359,39 @@ public class Graph<T> {
     }
 
     /**
+     * Returns the graph's articulation points as ArrayList
+     */
+    public ArrayList<Vertex<T>> getArticulationPoints(){
+
+        // placeholderInitialized represents (in this part of the code) whether the vertex was visited yet or no
+        for(Vertex<T> v:vertices){
+            v.placeholderInitialized = false;
+        }
+
+        ArrayList<Vertex<T>> articulationPoints = new ArrayList<>();
+
+        Vertex<T> root;
+        for(Vertex v: vertices) {
+            if (!v.placeholderInitialized){
+                root = v;
+                // start the dfs from the root and let it find all articulation points
+                articulationDFS(root, 0, articulationPoints, root);
+            }
+        }
+
+        // sort the articulation points by index assigned to them by the dfs
+        articulationPoints.sort((a,b) -> a.index-b.index);
+
+        return articulationPoints;
+    }
+
+    /**
      * finds a minimum spanning tree and returns it. The MST is determined using Kruskal's algorithm.
      * @return ArrayList containing all the Edges that are part of the minimum spanning tree
      */
     public ArrayList<Edge<T>> kruskal(){
         // create a new disjoint set with each vertex as its own partition
         DisjointSet<Vertex<T>> disjointVertices = new DisjointSet<>(vertices);
-
-        Sorter<Edge<T>> sorter = new Sorter<>();
 
         //sort the edges in ascending order by their weight
         edges.sort((a, b) -> a.getWeight() > b.getWeight() ? 1 : b.getWeight() > a.getWeight() ? -1 : 0);
@@ -383,6 +408,11 @@ public class Graph<T> {
             if(!setA.equals(setB)){
                 disjointVertices.union(e.getStart(), e.getEnd());
                 mst.add(e);
+            }
+
+            if(disjointVertices.numPartitions() == 1){
+                System.out.println("Woah");
+                break;
             }
         }
 
@@ -586,6 +616,56 @@ public class Graph<T> {
         Collections.reverse(path);
 
         return path;
+    }
+
+    /**
+     * Performs a modified depth-fist-search. Modification: Each vertex is assigned a index, representing its order
+     * in the dfs. Furthermore we keep track of all articulation points and we pass the root, so we know when to
+     * apply the criteria that only applies to the root of the dfs.
+     *
+     * @param vertex the vertex that is currently processed by the dfs
+     * @param index the index that will be assigned to the vertex
+     * @param articulationPoints the list of all articulation points found already
+     * @param root the vertex from which the dfs was started
+     * @return the low value of this vertex
+     */
+    private int articulationDFS(Vertex<T> vertex, int index, ArrayList<Vertex<T>> articulationPoints, Vertex<T> root){
+        vertex.index = index;
+        vertex.low = vertex.index;
+        // placeholderInitialized represents whether the vertex was visited or not
+        vertex.placeholderInitialized = true;
+
+        int counter = 0;
+        for(Edge<T> e: vertex.getOutgoingEdges()){
+            if(!e.getEnd().placeholderInitialized) {
+                // keep track of how many different dfs we had to initiate from this vertex (needed to determine
+                // if the root is an articulation point)
+                counter++;
+
+                // perform the dfs on the child and save the child's returned low value
+                int low = articulationDFS(e.getEnd(), index+1, articulationPoints, root);
+                // update this vertex' low value if necessary
+                vertex.low = Math.min(vertex.low, low);
+
+                // if the low value of any child of this vertex is bigger or equal to this vertex' index
+                // then this vertex is a articulation point. We exclude the root because the root has a
+                // different criteria
+                if(low >= vertex.index && !vertex.isArticulationPoint && !vertex.equals(root)){
+                    articulationPoints.add(vertex);
+                    vertex.isArticulationPoint = true;
+                }
+
+                // the root has a different criteria than the other vertices
+                if(counter > 1 && vertex.equals(root)){
+                    articulationPoints.add(root);
+                }
+            }else{
+                // keep record of the lowest index we can reach from this vertex by only using one  "non-dfs"-Edge
+                vertex.low = Math.min(vertex.low, e.getEnd().index);
+            }
+        }
+
+        return vertex.low;
     }
 
 
